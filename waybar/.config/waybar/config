@@ -1,0 +1,92 @@
+{
+  "layer": "top",
+  "position": "top",
+  "height": 32,
+  "margin-left": 20,
+  "margin-right": 20,
+  "margin-top": 5,
+
+  "modules-left": ["hyprland/workspaces"],
+  "modules-center": ["clock"],
+  "modules-right": ["network", "battery","backlight", "pulseaudio", "custom/updates", "custom/notification", "tray"],
+
+  "hyprland/workspaces": {
+    "disable-scroll": true,
+    "all-outputs": true
+  },
+
+ "clock": {
+        "format": "    {:%H:%M}",
+        "tooltip-format": "<big>{:%Y %B}</big>\n<tt><small>{calendar}</small></tt>"
+    },
+
+"network": {
+    "format-wifi": "    {essid}",
+    "format-ethernet": "󰈀     {ipaddr}",
+    "format-disconnected": "⚠ Disconnected",
+    "on-click": "nm-connection-editor"
+},
+
+"battery": {
+    "states": {
+        "warning": 30,
+        "critical": 15
+    },
+    "format": "{icon}   {capacity}%",
+    "format-charging": "\ue315 {icon} {capacity}%",
+    "format-icons": [" ", " ", " ", " ", " "]
+},
+
+  "backlight": {
+    "device": "intel_backlight",
+    "format": "{icon}   {percent}%",
+    "format-icons": ["", "", "", "", "", "", "", "", ""],
+    "on-scroll-up": "brightnessctl set 1%+",
+    "on-scroll-down": "brightnessctl set 1%-",
+    "min-length": 6
+},
+
+  "tray": {
+    "icon-size": 18,
+    "spacing": 10
+  },
+  "pulseaudio": {
+        "format": "{icon}   {volume}%",
+        "format-muted": "\ueb24",
+        "format-icons": {
+            "default": ["", "", ""]
+        },
+        "on-click": "pavucontrol"
+  },
+  "custom/notification": {
+    "tooltip": false,
+    "format": "{icon}",
+    "format-icons": {
+        "notification": "<span foreground='red'><sup></sup></span>",
+        "none": "",
+        "dnd-notification": "<span foreground='red'><sup></sup></span>",
+        "dnd-none": "",
+        "inhibited-notification": "<span foreground='red'><sup></sup></span>",
+        "inhibited-none": "",
+        "dnd-inhibited-notification": "<span foreground='red'><sup></sup></span>",
+        "dnd-inhibited-none": ""
+    },
+    "return-type": "json",
+    "exec-if": "which swaync-client",
+    "exec": "swaync-client -swb",
+    "on-click": "swaync-client -t -sw",
+    "on-click-right": "swaync-client -d -sw",
+    "escape": true
+},
+"custom/updates": {
+    "format": "{} {icon}",
+    "return-type": "json",
+    "format-icons": {
+        "has-updates": "󱍷",
+        "updated": "󰏖 " 
+    },
+    "exec-if": "which waybar-module-pacman-updates",
+    "exec": "waybar-module-pacman-updates --interval-seconds 5 --network-interval-seconds 300 --no-zero-output --tooltip-align-columns",
+    "on-click": "foot -e sudo pacman -Syu && killall -SIGUSR2 waybar" 
+}
+}

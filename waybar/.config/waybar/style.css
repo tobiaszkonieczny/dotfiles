@@ -1,0 +1,49 @@
+@import "../../.cache/wal/colors-waybar.css";
+* {
+    font-family: "Geist Sans";
+    font-size: 14px;
+    font-weight: 500;
+    border: none;
+    border-radius: 0;
+}
+
+window#waybar {
+background: transparent;
+    color: @foreground;
+}
+
+#workspaces button {
+    border-radius: 8px;
+    background-color: rgba(255, 255, 255, 0.1);
+    padding: 0 4px;
+    margin: 4px;
+    color: @color4;
+}
+
+#workspaces button.active {
+    color: @color5;
+    background-color: @foreground;
+    border-radius: 10px;
+}
+
+#clock, #battery, #network, #pulseaudio, #tray, #backlight, #custom-notification, #custom-updates {
+    padding: 0 10px;
+    margin: 4px;
+    border-radius: 8px;
+    background: linear-gradient(
+        to right, 
+        alpha(@color14, 0.5), 
+        alpha(@color14, 0.5)
+    );    
+    border-radius: 10px;
+    color: @foreground;
+}
+
+#network { color: @color7; }
+#backlight { color: @color8; }
+#pulseaudio { color: @color7; }
+#battery { color: @color0; }
+#custom-notification { 
+    color: @color0; 
+    padding-left: 7px;
+}

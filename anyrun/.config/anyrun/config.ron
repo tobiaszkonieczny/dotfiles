@@ -1,0 +1,14 @@
+Config(
+  x: Fraction(0.5), // Środek ekranu
+  y: Fraction(0.03),
+  width: Fraction(0.4),
+  show_results_immediately: true,
+  max_entries: Some(10),
+  
+  plugins: [
+  "/etc/anyrun/plugins/libapplications.so",
+  "/etc/anyrun/plugins/libwebsearch.so",
+  "/etc/anyrun/plugins/librink.so",
+  "/etc/anyrun/plugins/libshell.so",
+  ],
+)

@@ -1,0 +1,75 @@
+@import url("../../.cache/wal/colors-waybar.css");
+
+* {
+    font-family: "Geist Sans";
+    font-size: 13px;
+    transition: all 0.15s ease;
+}
+
+window {
+    background-color: alpha(@background, 0.5);
+    color: @foreground;
+}
+
+scrolledwindow {
+    background-color: transparent;
+    border: none;
+}
+
+box {
+    background-color: transparent;
+}
+
+button {
+    background-color: transparent;
+    color: @foreground;
+    border: 1px solid alpha(@color1, 0.25);
+    border-radius: 8px;
+    padding: 5px 12px;
+    min-height: 28px;
+}
+
+button:hover {
+    background-color: alpha(@color1, 0.15);
+    border-color: @color1;
+    color: @color1;
+}
+
+button:active {
+    background-color: alpha(@color1, 0.3);
+}
+
+.grid button,
+grid button {
+    padding: 2px;
+    border: 3px solid transparent;
+    border-radius: 12px;
+    background-color: transparent;
+    margin: 5px;
+}
+
+.grid button image,
+grid button image {
+    border-radius: 10px;
+
+}
+
+.grid button:hover,
+grid button:hover {
+    border-width: 3px;
+    border-color: @color2;
+    background-color: alpha(@color2, 0.08);
+}
+
+.highlighted-button {
+    border-width: 3px;
+    border-color: @color3;
+    border-radius: 12px;
+    background-color: alpha(@color3, 0.08);
+}
+
+.highlighted-button:hover {
+    border-width: 3px;
+    border-color: @color3;
+}
+

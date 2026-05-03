@@ -1,0 +1,70 @@
+@import "../../.cache/wal/colors-waybar.css";
+
+window {
+    background-color: alpha(@background, 0.4);
+    
+}
+
+#main {
+    margin: 60px 80px;
+}
+
+button {
+    color: @foreground;
+    min-width: 240px;
+    min-height: 75px;
+    margin: 14px;
+
+    border-radius: 20px;
+    border: 3px solid alpha(@color5, 0.9);
+
+    background-color: alpha(@color12, 0.6);
+
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: 30%;
+
+    transition: 200ms ease-in-out;
+}
+
+button:hover {
+    background-color: alpha(@color2, 0.9);
+    border-color: @foreground;
+}
+
+button:active {
+    background-color: @color3;
+}
+
+button:focus {
+    outline: none;
+    box-shadow: none;
+}
+
+button {
+    -gtk-icon-effect: highlight;
+}
+
+#lock {
+    background-image: url("icons/lock.svg");
+}
+
+#logout {
+    background-image: url("icons/log-out.svg");
+}
+
+#suspend {
+    background-image: url("icons/circle-pause.svg");
+}
+
+#hibernate {
+    background-image: url("icons/monitor-pause.svg");
+}
+
+#shutdown {
+    background-image: url("icons/power.svg");
+}
+
+#reboot {
+    background-image: url("icons/rotate-ccw.svg");
+}

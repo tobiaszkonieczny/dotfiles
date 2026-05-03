@@ -1,0 +1,208 @@
+
+@import url("../../.cache/wal/colors-waybar.css");
+
+@define-color cc-bg alpha(@background, 0.8);
+@define-color noti-border-color alpha(@color4, 0.3);
+@define-color noti-bg @background;
+@define-color noti-bg-hover @color8;
+@define-color noti-bg-focus @color4;
+@define-color text-color @foreground;
+@define-color text-color-disabled alpha(@foreground, 0.5);
+@define-color bg-selected @color4;
+
+notificationwindow,
+blankwindow {
+    background: transparent;
+}
+
+.control-center {
+    margin: 12px 28px 28px 36px;
+    background: @cc-bg;
+    color: @text-color;
+    border-radius: 20px;
+    border: 3px solid @color4;
+    box-shadow: 0 0 10px 0 rgba(0,0,0,0.5);
+    
+}
+
+.control-center-list {
+    background: transparent;
+}
+
+.control-center-list-placeholder {
+    opacity: 0.5;
+}
+
+.notification-row {
+    outline: none;
+    margin: 12px 28px 6px 28px;
+    background: transparent;
+    transition: none !important; 
+}
+
+.notification-row:focus {
+    background: alpha(@noti-bg-focus, 0.2);
+}
+
+.notification-row.unread .notification {
+    border: 3px solid @color4 !important;
+    background: alpha(@color0, 0.8) !important;
+}
+
+.notification {
+    border-radius: 20px;
+    border: 3px solid @noti-border-color;
+    padding: 0;
+    background: alpha(@noti-bg, 0.9);
+    color: @text-color;
+    transition: none !important;
+}
+
+.notification-background {
+    padding: 0;
+}
+
+.notification-default-action {
+    padding: 8px;
+    margin: 0;
+    background: transparent;
+    border: none;
+    color: @text-color;
+    border-radius: 12px;
+}
+
+.notification-default-action:hover {
+    background: alpha(@noti-bg-hover, 0.3);
+}
+
+.notification-content .image {
+    -gtk-icon-size: 64px;
+    border-radius: 100px;
+    margin: 8px;
+}
+
+.notification-content .app-icon {
+    -gtk-icon-size: 24px;
+    margin: 6px;
+}
+
+.notification-content .summary {
+    font-size: 16px;
+    font-weight: bold;
+    color: @text-color;
+}
+
+.notification-content .body {
+    font-size: 15px;
+    color: @text-color;
+}
+
+.close-button {
+    background: alpha(@color1, 0.8);
+    color: @background;
+    border-radius: 100%;
+    margin: 8px;
+    min-width: 24px;
+    min-height: 24px;
+    border: none;
+}
+
+.close-button:hover {
+    background: @color1;
+}
+
+.notification-group {
+    border: 2px solid @color4;
+    border-radius: 12px;
+    margin: 10px;
+    padding: 10px;
+    background: alpha(@background, 0.4);
+}
+
+.notification-group-headers {
+    padding: 5px 10px;
+    color: @color4;
+    font-weight: bold;
+}
+
+.notification-group-buttons button {
+    background: alpha(@color1, 0.5);
+    color: @foreground;
+    border-radius: 8px;
+    border: none;
+    margin: 2px;
+}
+
+.notification-group-buttons button:hover {
+    background: @color1;
+    color: @background;
+}
+
+.widget {
+    margin: 4px 8px 4px 8px;
+    padding: 4px 8px 4px 8px;
+    background: transparent;
+}
+
+.widget-title {
+    margin-top: 12px;
+    color: @color4;
+    font-weight: bold;
+}
+
+.widget-title > button {
+    background: @color1;
+    color: @background;
+    border-radius: 8px;
+    padding: 4px 12px;
+}
+
+.widget-title > button:hover {
+    background: @color4;
+}
+
+.widget-dnd * {
+    color: @color4;
+    font-weight: bold;
+}
+
+.widget-dnd > switch {
+    background: alpha(@color8, 0.3);
+    border-radius: 20px;
+    border: 2px solid @color4;
+}
+
+
+.widget-dnd > switch:checked {
+    background: @color4;
+}
+
+.widget-mpris {S
+    border-radius: 12px;
+}
+
+
+.widget-mpris-title {
+    font-weight: bold;
+    color: @color4;
+}
+
+.widget-mpris-subtitle {
+    color: @foreground;
+}
+
+.floating-notifications {
+    background: transparent;
+}
+
+.floating-notifications .notification {
+    background: alpha(@background, 0.95); 
+    border: 2px solid @color4;
+}
+
+.notification-group {
+  transition: 
+    opacity 120ms cubic-bezier(0.22, 1, 0.36, 1),
+    transform 120ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+
