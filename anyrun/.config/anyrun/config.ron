@@ -1,5 +1,5 @@
 Config(
-  x: Fraction(0.5), // Środek ekranu
+  x: Fraction(0.5),
   y: Fraction(0.03),
   width: Fraction(0.4),
   show_results_immediately: true,
