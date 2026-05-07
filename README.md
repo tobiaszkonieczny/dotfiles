@@ -1,4 +1,12 @@
-![Preview](assets/preview.png)
+<p align="center">
+  <img src="https://github.com/user-attachments/assets/e1e785cc-9b15-4ea4-87e5-dec18c40f032" width="49%" alt="Desktop Preview 1" />
+  <img src="https://github.com/user-attachments/assets/844ed389-8a57-4fd1-bbf7-d9bd5989f2c0" width="49%" alt="Desktop Preview 2" />
+</p>
+
+<p align="center">
+  <img src="https://github.com/user-attachments/assets/3eb29b94-08a5-4db4-8e98-1cc7d70a6e88" width="49%" alt="Desktop Preview 3" />
+  <img src="https://github.com/user-attachments/assets/806e8ffc-b674-4cc5-b0b6-63f098802e84" width="49%" alt="Desktop Preview 4" />
+</p>
 
 # Hyprland Dotfiles
 
