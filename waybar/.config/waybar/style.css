@@ -14,6 +14,12 @@ menu {
     border-radius: 12px; 
 }
 
+window.popup decoration {
+    box-shadow: none;
+    border: none;
+}
+
+
 
 
 window#waybar {
