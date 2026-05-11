@@ -1,11 +1,15 @@
 <p align="center">
-  <img src="https://github.com/user-attachments/assets/e1e785cc-9b15-4ea4-87e5-dec18c40f032" width="49%" alt="Desktop Preview 1" />
-  <img src="https://github.com/user-attachments/assets/844ed389-8a57-4fd1-bbf7-d9bd5989f2c0" width="49%" alt="Desktop Preview 2" />
+  <img src="https://github.com/user-attachments/assets/5755fda2-773a-47f7-a7d5-6fb5b1c72017" width="49%" alt="Desktop Preview 1" />
+  <img src=src="https://github.com/user-attachments/assets/09b42502-ff44-45fb-a197-55209b65bbaa" width="49%" alt="Desktop Preview 2" />
 </p>
 
 <p align="center">
-  <img src="https://github.com/user-attachments/assets/3eb29b94-08a5-4db4-8e98-1cc7d70a6e88" width="49%" alt="Desktop Preview 3" />
-  <img src="https://github.com/user-attachments/assets/806e8ffc-b674-4cc5-b0b6-63f098802e84" width="49%" alt="Desktop Preview 4" />
+  <img src="https://github.com/user-attachments/assets/317cfa65-0449-477a-af33-9623f0201a23" width="49%" alt="Desktop Preview 3" />
+  <img src="https://github.com/user-attachments/assets/c3199314-ebb7-4a91-9f5a-184fa2f5abc7" width="49%" alt="Desktop Preview 4" />
+</p>
+
+<p align="center">
+  <img src="https://github.com/user-attachments/assets/a127511f-6bb2-4be4-876d-2d759a61c3ca" width="100%" alt="Desktop Preview 6" />
 </p>
 
 # Hyprland Dotfiles
@@ -181,12 +185,13 @@ These are my personal preferences, and are mentioned in hyprland.conf:
 ## ✅ Post-Install Checklist
 
 After running `./install.sh` and starting Hyprland, go through this before anything else:
-
+- [ ] Start hyprland with `start-hyprland`
+- [ ] Put your wallpapers in `~/Pictures/wallpapers/`
 - [ ] Open Waypaper (`Super + W`) and select a wallpaper - this triggers Pywal to generate color files in `~/.cache/wal/`
 - [ ] Set GTK theme and icons via `nwg-look`
 - [ ] Check monitors with `hyprctl monitors` and adjust `hyprland.conf` if needed
 - [ ] Verify audio works - if not, check `wireplumber` is running (`systemctl --user status wireplumber`)
-- [ ] Put your wallpapers in `~/Pictures/wallpapers/`
+
 
 ### 🐚 Shell Setup (Zsh)
 To enable the **Starship** prompt, add the following to your `~/.zshrc`:
