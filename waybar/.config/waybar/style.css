@@ -8,74 +8,94 @@
     background-color: transparent;
 }
 
-menu {
-    background: alpha(@background, 0.9);
-    border: 2px solid @color3;          
-    border-radius: 12px; 
-}
-
-window.popup decoration {
-    box-shadow: none;
-    border: none;
-}
-
-
-
-
 window#waybar {
 background: transparent;
     color: @foreground;
 }
 
-#workspaces button {
-    border-radius: 8px;
-    background-color: rgba(255, 255, 255, 0.1);
-    padding: 0 4px;
+#workspaces {
+    border-radius: 10px;
+    padding: 0 2px; 
     margin: 4px;
-    color: @color4;
+}
+
+#workspaces button {
+    color: transparent;      
+    font-size: 0px;          
+    min-width: 20px;         
+    min-height: 12px;        
+    background-color: alpha(@color4, 0.5); 
+    border-radius: 12px;     
+    margin: 2px 4px;         
+    padding: 0;
+    transition: all 0.15s cubic-bezier(.55,-0.68,.48,1.68); 
 }
 
 #workspaces button.active {
-    color: @color5;
-    background-color: @foreground;
+    color: @foreground;      
+    font-size: 14px;         
+    font-weight: bold;
+    min-width: 35px;         
+    background: alpha(@color14, 0.5); 
+    border-radius: 10px;
+    padding: 0 8px;          
+}
+
+#workspaces button:hover {
+    background-color: @color1;
+    min-width: 20px;
+}
+
+#workspaces button.active:hover {
+    background: alpha(@color14, 0.5);
+    min-width: 35px;
+}
+
+#hardware, #center, #tools {
+    background: alpha(@color14, 0.3); 
+    margin: 2px;
     border-radius: 10px;
 }
 
-#clock, #battery, #network, #pulseaudio, #tray, #backlight, #custom-notification, #custom-updates, #mpris, #custom-weather {
-    padding: 0 10px;
-    margin: 4px;
-    border-radius: 8px;
-    background: linear-gradient(
-        to right, 
-        alpha(@color14, 0.5), 
-        alpha(@color14, 0.5)
-    );    
-    border-radius: 10px;
+#hardware{
+    margin-right: 8px;
+}
+
+#network, #battery, #backlight, #pulseaudio, #custom-updates, #custom-notification, #clock, #mpris, #custom-weather, #tray {
     color: @foreground;
+    margin: 0 4px 0 0; 
+    padding: 0 8px;
+    border-radius: 10px;
+    transition: all 0.3s ease;
 }
 
-#network { color: @color7; }
-#backlight { color: @color8; }
-#pulseaudio { color: @color7; }
-#battery { color: @color0; }
-#custom-notification { 
-    color: @color0; 
-    padding-left: 7px;
+#pulseaudio {
+    margin-right: 0;
 }
 
-
-#clock:hover {
-    background-color: @color1;              
-    color: #ffffff;
+#mpris {
+    margin-right: 0;
 }
 
-tooltip {
-   background: alpha(@background, 0.9);
-   border: 2px solid @color3;          
-   border-radius: 12px;                
+#network:hover, #battery:hover, #pulseaudio:hover, #backlight:hover, #clock:hover, #mpris:hover, 
+#custom-weather:hover, #custom-updates:hover, #custom-notification:hover {
+    background: @color7;
+    color: @background;
+
+}
+
+tooltip, menu {
+   background: alpha(@background, 0.85);
+   border-radius: 12px;
+   box-shadow: none;
 }
 
 tooltip label {
     color: @color7;
-    padding: 10px 15px;
+    padding: 8px;
+}
+
+window.popup decoration {
+    box-shadow: none;
+    border: none;
 }
