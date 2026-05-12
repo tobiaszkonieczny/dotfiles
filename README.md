@@ -26,52 +26,15 @@ The installer is interactive. You can choose exactly which dotfiles you want to 
    ```bash
    git clone [https://github.com/tobiaszkonieczny/dotfiles.git](https://github.com/tobiaszkonieczny/dotfiles.git) ~/dotfiles
 
-2. **Install necessary programs (look below)**
+2. **Install packages with the interactive setup script**:
    ```bash
-    yay -S --needed \
-    hyprland \
-    stow \
-    hyprpolkitagent \
-    xdg-desktop-portal-hyprland \
-    waybar \
-    anyrun-git \
-    foot \
-    python-pywal \
-    swaync \
-    waypaper-git \
-    awww \
-    hyprlock \
-    wlogout \
-    otf-geist-mono-nerd \
-    ttf-geist \
-    qt6-wayland \
-    pavucontrol
-  
+   chmod +x setup.sh && ./setup.sh
+   ```
+   The script lets you pick exactly what to install. Essential and recommended packages are pre-selected; optional ones (e.g. `kdeconnect`, `zen-browser`) are off by default. Use `↑↓` to navigate, `Space` to toggle, `Enter` to confirm.
 
-3. **Install utilities (not needed but strongly recommended)**
-   ```bash
-    yay -S --needed \
-    hyprpicker \
-    grim \
-    slurp \
-    wl-clipboard \
-    brightnessctl \
-    wireplumber \
-    playerctl \
-    network-manager-applet \
-    blueman \
-    rose-pine-hyprcursor \
-    nwg-look \
-    thunar \
-    gvfs \
-    tumbler \
-    ffmpegthumbnailer \
-    fastfetch \
-    btop \
-    starship \
-    zsh 
+   > **Manual alternative:** see the [Necessary Programs](#-necessary-programs) and [System Utilities](#-system-utilities-and-tools) tables below for the full package list.
 
-4. **Run the install script**:
+3. **Run the install script**:
    ```bash
    chmod +x install.sh ./install.sh
    ```
