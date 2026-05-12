@@ -30,6 +30,7 @@ The installer is interactive. You can choose exactly which dotfiles you want to 
    ```bash
     yay -S --needed \
     hyprland \
+    stow \
     hyprpolkitagent \
     xdg-desktop-portal-hyprland \
     waybar \
@@ -86,6 +87,7 @@ If you want this setup to be fully functional:
 | **Category**      | **Program**         | **Description**                            |
 | ----------------- | ------------------- | ------------------------------------------ |
 | **Compositor**    | `hyprland`          | Smooth Wayland tiling WM                   |
+| **File Linker**   | `Stow   `           | Creates config symlinks (used by install script)|
 | **Polkit Agent**  | `hyprpolkitagent`   | Necessary for elevation prompts (GUI sudo) |
 | **Status Bar**    | `waybar`            | Highly customizable GTK bar                |
 | **App Launcher**  | `anyrun`            | Fast and minimal runner                    |
@@ -185,6 +187,7 @@ These are my personal preferences, and are mentioned in hyprland.conf:
 ## ✅ Post-Install Checklist
 
 After running `./install.sh` and starting Hyprland, go through this before anything else:
+- [ x ] Pywal Initialization: The installer automatically generates an initial color palette from dotfiles/wallpaper/default.jpg.
 - [ ] Start hyprland with `start-hyprland`
 - [ ] Put your wallpapers in `~/Pictures/wallpapers/`
 - [ ] Open Waypaper (`Super + W`) and select a wallpaper - this triggers Pywal to generate color files in `~/.cache/wal/`
@@ -212,3 +215,5 @@ This config assumes, that you have your wallpapers under ~/Pictures/wallpapers. 
 After install, run Waypaper and select a wallpaper. This will trigger Pywal to generate the necessary color files in ~/.cache/wal/. Without this, some elements might appear white or transparent, or you might get some errors.
 
 Run Waypaper (`$mainMod + W`), pick a wallpaper, and let Pywal do its magic. The config expects colors to exist in ~/.cache/wal/.
+
+Wallpaper: Original art from the movie Your Name (Kimi no Na wa) by CoMix Wave Films. All rights belong to their respective owners.

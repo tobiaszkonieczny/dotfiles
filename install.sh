@@ -113,3 +113,24 @@ for module in "${FINAL_SELECTION[@]}"; do
 done
 
 echo -e "\n${GREEN}Done! All selected dots are linked.${NC}"
+
+echo -e "\n${BLUE}[INFO]${NC} Initializing colors and wallpaper..."
+
+DEFAULT_WALLPAPER="$DOTFILES_DIR/wallpaper/default.jpg"
+
+if [ -f "$DEFAULT_WALLPAPER" ]; then
+    if command -v wal &> /dev/null; then
+        wal -q -i "$DEFAULT_WALLPAPER"
+        echo -e "${GREEN}${CHECKED}${NC} Pywal cache initialized."
+    fi
+
+    if command -v awww &> /dev/null; then
+        awww "$DEFAULT_WALLPAPER" &> /dev/null || true
+        echo -e "${GREEN}${CHECKED}${NC} Wallpaper set via awww (if Wayland session active)."
+    fi
+else
+    echo -e "${YELLOW}[!]${NC} Default wallpaper not found at $DEFAULT_WALLPAPER"
+fi
+
+mkdir -p "$HOME/Pictures/wallpapers"
+cp "$DEFAULT_WALLPAPER" "$HOME/Pictures/wallpapers/default.jpg" 2>/dev/null
