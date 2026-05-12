@@ -33,7 +33,7 @@ The installer is interactive. You can choose exactly which dotfiles you want to 
    ```bash
    git clone [https://github.com/tobiaszkonieczny/dotfiles.git](https://github.com/tobiaszkonieczny/dotfiles.git) ~/dotfiles
 
-2. **Install packages with the interactive setup script**:
+2. **Install packages with the setup script**:
    ```bash
    chmod +x setup.sh && ./setup.sh
    ```
