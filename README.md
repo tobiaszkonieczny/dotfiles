@@ -10,12 +10,8 @@
 
 <p align="center">
   <img src="https://github.com/user-attachments/assets/a127511f-6bb2-4be4-876d-2d759a61c3ca" width="49%" alt="Desktop Preview 5" />
+    <img src="https://github.com/user-attachments/assets/a03b9312-e51a-40a4-9768-7cc910127d05" width="49%" alt="Desktop Preview 6" />
 </p>
-
-<p align="center">
-  <img src="https://github.com/user-attachments/assets/a03b9312-e51a-40a4-9768-7cc910127d05" width="49%" alt="Desktop Preview 6" />
-</p>
-
 
 
 
