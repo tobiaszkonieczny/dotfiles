@@ -51,17 +51,30 @@ background: transparent;
     min-width: 35px;
 }
 
-#hardware, #center, #tools {
+#hardware, #center, #tools{
     background: alpha(@color14, 0.3); 
     margin: 2px;
     border-radius: 10px;
+}
+
+#tray {
+    background: alpha(@color14, 0.3); 
+    border-radius: 10px;
+    margin: 2px;
+    padding: 0 4px;
+}
+
+#tray > * {
+    border-radius: 10px;
+    margin: 0;
+    padding: 0;
 }
 
 #hardware{
     margin-right: 8px;
 }
 
-#network, #battery, #backlight, #pulseaudio, #custom-updates, #custom-notification, #clock, #mpris, #custom-weather, #tray {
+#network, #battery, #backlight, #pulseaudio, #custom-updates, #custom-notification, #clock, #mpris, #custom-weather {
     color: @foreground;
     margin: 0 4px 0 0; 
     padding: 0 8px;

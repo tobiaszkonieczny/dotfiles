@@ -8,7 +8,7 @@
 
   "modules-left": ["hyprland/workspaces"],
   "modules-center": ["group/center"],
-  "modules-right": ["group/hardware", "group/tools"],
+  "modules-right": ["group/hardware", "group/tools", "tray"],
 
   "group/hardware": {
     "orientation": "inherit",
@@ -19,7 +19,7 @@
   "group/tools": {
     "orientation": "inherit",
     "modules": [
-      "custom/updates", "custom/notification", "tray"
+      "custom/updates", "custom/notification"
     ]
   },
   "group/center": {
