@@ -73,7 +73,7 @@ hl.config({
 
     decoration = {
         rounding       = 20,
-        rounding_power = 3,
+        rounding_power = 2.1,
 
         active_opacity   = 1.0,
         inactive_opacity = 1.0,
@@ -196,6 +196,7 @@ hl.bind(mainMod .. " + J",         hl.dsp.layout("togglesplit"))
 hl.bind(mainMod .. " + N",         hl.dsp.exec_cmd("swaync-client -t -sw"))
 hl.bind(mainMod .. " + X",         hl.dsp.exec_cmd("wlogout"))
 hl.bind(mainMod .. " + SHIFT + X", hl.dsp.exec_cmd("hyprlock"))
+-- hl.bind("less", hl.dsp.exec_cmd("python3 ~/Documents/Studia/gemini-helper.py --screenshot"))
 
 -- Move focus with mainMod + arrow keys
 hl.bind(mainMod .. " + left",  hl.dsp.focus({ direction = "left"  }))

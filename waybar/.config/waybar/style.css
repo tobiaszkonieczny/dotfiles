@@ -24,7 +24,7 @@ background: transparent;
     font-size: 0px;          
     min-width: 20px;         
     min-height: 12px;        
-    background-color: alpha(@color4, 0.5); 
+    background-color: alpha(@color4, 0.3); 
     border-radius: 12px;     
     margin: 2px 4px;         
     padding: 0;
@@ -36,7 +36,7 @@ background: transparent;
     font-size: 14px;         
     font-weight: bold;
     min-width: 35px;         
-    background: alpha(@color14, 0.5); 
+    background: alpha(@color14, 0.3); 
     border-radius: 10px;
     padding: 0 8px;          
 }
@@ -74,7 +74,7 @@ background: transparent;
     margin-right: 8px;
 }
 
-#network, #battery, #backlight, #pulseaudio, #custom-updates, #custom-notification, #clock, #mpris, #custom-weather {
+#network, #battery, #backlight, #pulseaudio, #custom-updates, #custom-notification, #custom-gemini, #clock, #mpris, #custom-weather {
     color: @foreground;
     margin: 0 4px 0 0; 
     padding: 0 8px;
@@ -82,18 +82,31 @@ background: transparent;
     transition: all 0.3s ease;
 }
 
+#network {
+    margin-right: 0;
+    padding-right: 0;
+}
+#custom-gemini {
+    margin-left: 0;
+    padding-left: 0;
+}
+
 #pulseaudio {
     margin-right: 0;
 }
 
 #mpris {
-    margin-right: 0;
+    background: alpha(@color14, 0.3); 
+    border-radius: 10px;
+    margin: 2px;
+    padding: 4px;
+    padding-left: 12px;
 }
 
 #network:hover, #battery:hover, #pulseaudio:hover, #backlight:hover, #clock:hover, #mpris:hover, 
 #custom-weather:hover, #custom-updates:hover, #custom-notification:hover {
-    background: @color7;
-    color: @background;
+    /* background: @color7;
+    color: @background; */
 
 }
 

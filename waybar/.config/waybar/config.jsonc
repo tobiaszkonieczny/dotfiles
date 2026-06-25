@@ -13,7 +13,7 @@
   "group/hardware": {
     "orientation": "inherit",
     "modules": [
-      "network", "battery","backlight", "pulseaudio"
+      "network", "custom/gemini", "battery","backlight", "pulseaudio"
     ]
   },
   "group/tools": {
@@ -25,7 +25,7 @@
   "group/center": {
     "orientation": "inherit",
     "modules": [
-      "custom/weather","clock", "mpris"
+      "custom/weather","clock"
     ]
   },
 
@@ -131,19 +131,21 @@
         "exec": "waybar-module-pacman-updates --interval-seconds 5 --network-interval-seconds 300 --no-zero-output --tooltip-align-columns",
         "on-click": "foot -e sudo pacman -Syu && killall -SIGUSR2 waybar"
     },
-    "mpris": {
-    "format": "{player_icon}  {title}",
-    "format-paused": "󰏤 {title}",
-    "player-icons": {
-        "default": "󰎆",
-        "spotify": ""
-    },
-    "max-length": 30
-    },
+
 "custom/weather": {
-    "exec": "curl -s 'https://wttr.in/Marklowice?format=%c%t'",
+    "exec": "curl -s --max-time 5 'https://wttr.in/Marklowice?format=%c%t' || echo 'N/A'",
     "interval": 3600,
     "on-click": "xdg-open https://wttr.in/Marklowice"
 },
+
+"custom/gemini": {
+    "exec": "cat /tmp/waybar_gemini.json",
+    "return-type": "json",
+    "interval": "once",
+    "signal": 8,
+    "format": "{}",
+    "on-click": "echo '{\"text\": \"\", \"tooltip\": \"\"}' > /tmp/waybar_gemini.json && pkill -RTMIN+8 waybar"
+}
+
     
 }
