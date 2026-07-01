@@ -73,7 +73,7 @@ hl.config({
 
     decoration = {
         rounding       = 20,
-        rounding_power = 3,
+        rounding_power = 2.2,
 
         active_opacity   = 1.0,
         inactive_opacity = 1.0,
@@ -298,8 +298,8 @@ hl.window_rule({
 
 hl.window_rule({
     name    = "opacity-strong",
-    match   = { class = "^(foot|Caprine)$" },
-    opacity = "0.75 0.75",
+    match   = { class = "^(foot|Caprine|spotify)$" },
+    opacity = "0.75",
 })
 
 hl.window_rule({
