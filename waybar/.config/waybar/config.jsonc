@@ -132,6 +132,7 @@
         "on-click": "foot -e sudo pacman -Syu && killall -SIGUSR2 waybar"
     },
     "mpris": {
+    "player": "spotify",
     "format": "{player_icon}  {title}",
     "format-paused": "󰏤 {title}",
     "player-icons": {

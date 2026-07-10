@@ -9,36 +9,36 @@
 }
 
 window#waybar {
-background: transparent;
+    background: transparent;
     color: @foreground;
 }
 
 #workspaces {
     border-radius: 10px;
-    padding: 0 2px; 
+    padding: 0 2px;
     margin: 4px;
 }
 
 #workspaces button {
-    color: transparent;      
-    font-size: 0px;          
-    min-width: 20px;         
-    min-height: 12px;        
-    background-color: alpha(@color4, 0.5); 
-    border-radius: 12px;     
-    margin: 2px 4px;         
+    color: transparent;
+    font-size: 0px;
+    min-width: 20px;
+    min-height: 12px;
+    background-color: alpha(@color4, 0.5);
+    border-radius: 12px;
+    margin: 2px 4px;
     padding: 0;
-    transition: all 0.15s cubic-bezier(.55,-0.68,.48,1.68); 
+    transition: all 0.15s cubic-bezier(0.55, -0.68, 0.48, 1.68);
 }
 
 #workspaces button.active {
-    color: @foreground;      
-    font-size: 14px;         
+    color: @foreground;
+    font-size: 14px;
     font-weight: bold;
-    min-width: 35px;         
-    background: alpha(@color14, 0.5); 
+    min-width: 35px;
+    background: alpha(@color14, 0.5);
     border-radius: 10px;
-    padding: 0 8px;          
+    padding: 0 8px;
 }
 
 #workspaces button:hover {
@@ -51,14 +51,16 @@ background: transparent;
     min-width: 35px;
 }
 
-#hardware, #center, #tools{
-    background: alpha(@color14, 0.3); 
+#hardware,
+#center,
+#tools {
+    background: alpha(@color14, 0.3);
     margin: 2px;
     border-radius: 10px;
 }
 
 #tray {
-    background: alpha(@color14, 0.3); 
+    background: alpha(@color14, 0.3);
     border-radius: 10px;
     margin: 2px;
     padding: 0 4px;
@@ -70,37 +72,53 @@ background: transparent;
     padding: 0;
 }
 
-#hardware{
+#hardware {
     margin-right: 8px;
 }
 
-#network, #battery, #backlight, #pulseaudio, #custom-updates, #custom-notification, #clock, #mpris, #custom-weather {
+#network,
+#battery,
+#backlight,
+#pulseaudio,
+#custom-updates,
+#custom-notification,
+#clock,
+#mpris,
+#custom-weather {
     color: @foreground;
-    margin: 0 4px 0 0; 
+    margin: 0 4px 0 0;
     padding: 0 8px;
     border-radius: 10px;
     transition: all 0.3s ease;
 }
 
 #pulseaudio {
-    margin-right: 0;
+    margin-right: 2px;
+    padding-right: 10px;
 }
 
 #mpris {
     margin-right: 0;
 }
 
-#network:hover, #battery:hover, #pulseaudio:hover, #backlight:hover, #clock:hover, #mpris:hover, 
-#custom-weather:hover, #custom-updates:hover, #custom-notification:hover {
+#network:hover,
+#battery:hover,
+#pulseaudio:hover,
+#backlight:hover,
+#clock:hover,
+#mpris:hover,
+#custom-weather:hover,
+#custom-updates:hover,
+#custom-notification:hover {
     background: @color7;
     color: @background;
-
 }
 
-tooltip, menu {
-   background: alpha(@background, 0.85);
-   border-radius: 12px;
-   box-shadow: none;
+tooltip,
+menu {
+    background: alpha(@background, 0.85);
+    border-radius: 12px;
+    box-shadow: none;
 }
 
 tooltip label {
