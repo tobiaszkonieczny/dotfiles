@@ -57,7 +57,7 @@ hl.env("HYPRCURSOR_THEME", "rose-pine-hyprcursor")
 hl.config({
     general = {
         gaps_in  = 5,
-        gaps_out =  {top = 5, right = 20, bottom = 20, left = 20 },
+        gaps_out =  {top = 10, right = 20, bottom = 20, left = 20 },
 
         border_size = 3,
 
@@ -72,8 +72,8 @@ hl.config({
     },
 
     decoration = {
-        rounding       = 20,
-        rounding_power = 2.2,
+        rounding       = 15,
+        rounding_power = 2,
 
         active_opacity   = 1.0,
         inactive_opacity = 1.0,
@@ -187,7 +187,18 @@ hl.bind(mainMod .. " + SHIFT + Q", hl.dsp.exec_cmd('foot zsh -c "fastfetch; exec
 hl.bind(mainMod .. " + C",         hl.dsp.window.close())
 hl.bind(mainMod .. " + SHIFT + M", hl.dsp.exit())
 hl.bind(mainMod .. " + E",         hl.dsp.exec_cmd(fileManager))
-hl.bind(mainMod .. " + V",         hl.dsp.window.float({ action = "toggle" }))
+hl.bind("SUPER + V", function()
+  local w = hl.get_active_window()
+  if w == nil then return end
+
+  if w.floating then
+    hl.dispatch(hl.dsp.window.float({ action = "set", value = false }))
+  else
+    hl.dispatch(hl.dsp.window.float({ action = "set", value = true }))
+    hl.dispatch(hl.dsp.window.resize({ x = 1280, y = 720 }))
+  end
+end)
+-- hl.dsp.window.resize({ x = 800, y = 600 })
 hl.bind(mainMod .. " + W",         hl.dsp.exec_cmd("waypaper"))
 hl.bind("ALT + SPACE",             hl.dsp.exec_cmd(menu))
 hl.bind(mainMod .. " + P",         hl.dsp.window.pseudo())
@@ -277,6 +288,7 @@ hl.layer_rule({
     blur  = true,
 })
 
+
 -- Window rules
 hl.window_rule({
     name    = "opacity-general",
@@ -286,7 +298,7 @@ hl.window_rule({
 
 hl.window_rule({
     name    = "no-opacity",
-    match   = { class = "^(zen)$" },
+    match   = { class = "^(zen|foot)$" },
     opacity = 1.0,
 })
 
@@ -298,14 +310,8 @@ hl.window_rule({
 
 hl.window_rule({
     name    = "opacity-strong",
-    match   = { class = "^(foot|Caprine|spotify)$" },
+    match   = { class = "^(Caprine|Spotify)$" },
     opacity = "0.75",
-})
-
-hl.window_rule({
-    name    = "opacity-foot",
-    match   = { class = "^(xsidjfbkdsjb)$" },
-    opacity = "0.2 0.2",
 })
 
 hl.window_rule({
@@ -314,3 +320,22 @@ hl.window_rule({
     float = true,
     size  = "1200 800",
 })
+
+hl.window_rule({
+    match = { class = "dev.noctalia.Noctalia" },
+    float = true,
+    size = { 1080, 920 },
+})
+
+hl.layer_rule({
+  name = "noctalia",
+  match = {
+    namespace = "^noctalia-(bar-.+|notification|dock|panel|attached-panel|osd|window-switcher)$",
+  },
+  no_anim = true,
+  ignore_alpha = 0.5,
+  blur = true,
+  blur_popups = true,
+})
+-- For Noctalia Color templates
+require("noctalia").apply_theme()
