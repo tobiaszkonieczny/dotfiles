@@ -1,14 +1,3 @@
-local home = os.getenv("HOME")
-local ok, colors = pcall(dofile, home .. "/.cache/wal/colors-hyprland.lua")
-if not ok then
-    colors = {
-        color0 = "rgba(1b1918ff)",
-        color4 = "rgba(ea9d34ff)",
-        color5 = "rgba(286983ff)",
-        color7 = "rgba(e8e4dfff)",
-    }
-end
-
 ------------------
 ---- MONITORS ----
 ------------------
@@ -23,7 +12,7 @@ hl.monitor({ output = "DP-1",  mode = "2560x1440@144", position = "1920x0",     
 
 local terminal    = "foot"
 local fileManager = "thunar"
-local menu        = "anyrun"
+
 
 
 -------------------
@@ -31,14 +20,7 @@ local menu        = "anyrun"
 -------------------
 
 hl.on("hyprland.start", function()
-    hl.exec_cmd("sleep 2 && waybar > ~/.cache/waybar.log 2>&1")
     hl.exec_cmd("kdeconnect-indicator")
-    hl.exec_cmd("waypaper --restore")
-    hl.exec_cmd("swaync")
-    hl.exec_cmd("anyrun daemon")
-    hl.exec_cmd("awww-daemon")
-    hl.exec_cmd("nm-applet --indicator")
-    hl.exec_cmd("blueman-applet")
     hl.exec_cmd("systemctl --user start hyprpolkitagent")
 end)
 
@@ -60,11 +42,6 @@ hl.config({
         gaps_out =  {top = 10, right = 20, bottom = 20, left = 20 },
 
         border_size = 3,
-
-        col = {
-            active_border   = { colors = { colors.color4, colors.color5 }, angle = 45 },
-            inactive_border = colors.color0,
-        },
 
         resize_on_border = false,
         allow_tearing    = false,
@@ -126,11 +103,6 @@ hl.config({
     },
 })
 
-hl.config({
-    master = {
-        new_status = "master",
-    },
-})
 
 hl.config({
     misc = {
@@ -181,6 +153,7 @@ hl.device({
 ---------------------
 
 local mainMod = "SUPER"
+local ipc = "noctalia msg "
 
 hl.bind(mainMod .. " + Q",         hl.dsp.exec_cmd(terminal))
 hl.bind(mainMod .. " + SHIFT + Q", hl.dsp.exec_cmd('foot zsh -c "fastfetch; exec zsh"'))
@@ -199,15 +172,16 @@ hl.bind("SUPER + V", function()
   end
 end)
 -- hl.dsp.window.resize({ x = 800, y = 600 })
-hl.bind(mainMod .. " + W",         hl.dsp.exec_cmd("waypaper"))
-hl.bind("ALT + SPACE",             hl.dsp.exec_cmd(menu))
+hl.bind(mainMod .. " + W",         hl.dsp.exec_cmd(ipc .. "panel-toggle wallpaper"))
+hl.bind(mainMod .. "+A", hl.dsp.exec_cmd(ipc .. "panel-toggle control-center"))
+hl.bind(mainMod .. "+Space", hl.dsp.exec_cmd(ipc .. "panel-toggle launcher"))
+hl.bind(mainMod .. "+comma", hl.dsp.exec_cmd(ipc .. "settings-toggle"))
 hl.bind(mainMod .. " + P",         hl.dsp.window.pseudo())
 hl.bind(mainMod .. " + H",         hl.dsp.exec_cmd("hyprpicker -a"))
 hl.bind(mainMod .. " + J",         hl.dsp.layout("togglesplit"))
-hl.bind(mainMod .. " + N",         hl.dsp.exec_cmd("swaync-client -t -sw"))
-hl.bind(mainMod .. " + X",         hl.dsp.exec_cmd("wlogout"))
-hl.bind(mainMod .. " + SHIFT + X", hl.dsp.exec_cmd("hyprlock"))
-
+hl.bind(mainMod .. " + N", hl.dsp.exec_cmd(ipc .. "panel-toggle control-center notifications"))
+hl.bind(mainMod .. " + X", hl.dsp.exec_cmd(ipc .. "panel-toggle session"))
+hl.bind(mainMod .. " + SHIFT + X", hl.dsp.exec_cmd(ipc .. "session lock"))
 -- Move focus with mainMod + arrow keys
 hl.bind(mainMod .. " + left",  hl.dsp.focus({ direction = "left"  }))
 hl.bind(mainMod .. " + right", hl.dsp.focus({ direction = "right" }))
@@ -264,22 +238,9 @@ hl.bind("XF86AudioPrev",  hl.dsp.exec_cmd("playerctl previous"),   { locked = tr
 -- Layer rules
 hl.layer_rule({
     name         = "blur_ignore_alpha",
-    match        = { namespace = "^(anyrun|waybar)" },
+    match        = { namespace = "^(anyrun)" },
     ignore_alpha = 0.1,
     blur         = true,
-})
-
-hl.layer_rule({
-    name         = "blur_ignore_alpha_2",
-    match        = { namespace = "^(swaync-control-center)" },
-    ignore_alpha = 0.5,
-    blur         = true,
-})
-
-hl.layer_rule({
-    name      = "swaync-slide",
-    match     = { namespace = "^(swaync-control-center|swaync-notification-window)" },
-    animation = "slidefade right",
 })
 
 hl.layer_rule({
@@ -316,7 +277,7 @@ hl.window_rule({
 
 hl.window_rule({
     name  = "float-apps",
-    match = { class = "^(waypaper|blueman-manager|nm-connection-editor|org.pulseaudio.pavucontrol)$" },
+    match = { class = "^(blueman-manager|nm-connection-editor|org.pulseaudio.pavucontrol)$" },
     float = true,
     size  = "1200 800",
 })

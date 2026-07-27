@@ -116,13 +116,13 @@ directory = "/home/tobia/Pictures/wallpapers"
 transition_on_startup = true
 
     [wallpaper.default]
-    path = "/home/tobia/Pictures/wallpapers/D9P4wGJ.jpeg"
+    path = "/home/tobia/Pictures/wallpapers/bebop.jpg"
 
     [wallpaper.last]
-    path = "/home/tobia/Pictures/wallpapers/D9P4wGJ.jpeg"
+    path = "/home/tobia/Pictures/wallpapers/bebop.jpg"
 
     [wallpaper.monitors.DP-1]
-    path = "/home/tobia/Pictures/wallpapers/D9P4wGJ.jpeg"
+    path = "/home/tobia/Pictures/wallpapers/bebop.jpg"
 
     [wallpaper.monitors.eDP-1]
-    path = "/home/tobia/Pictures/wallpapers/D9P4wGJ.jpeg"
+    path = "/home/tobia/Pictures/wallpapers/bebop.jpg"
