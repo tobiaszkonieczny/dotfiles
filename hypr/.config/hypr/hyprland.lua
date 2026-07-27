@@ -18,8 +18,8 @@ local fileManager = "thunar"
 -------------------
 ---- AUTOSTART ----
 -------------------
-
 hl.on("hyprland.start", function()
+    hl.exec_cmd("noctalia")
     hl.exec_cmd("kdeconnect-indicator")
     hl.exec_cmd("systemctl --user start hyprpolkitagent")
 end)
@@ -41,7 +41,7 @@ hl.config({
         gaps_in  = 5,
         gaps_out =  {top = 10, right = 20, bottom = 20, left = 20 },
 
-        border_size = 3,
+        border_size = 2,
 
         resize_on_border = false,
         allow_tearing    = false,
@@ -49,18 +49,19 @@ hl.config({
     },
 
     decoration = {
-        rounding       = 15,
-        rounding_power = 2,
+    rounding       = 20,
+    rounding_power = 2,
 
         active_opacity   = 1.0,
         inactive_opacity = 1.0,
 
-        shadow = {
-            enabled      = true,
-            range        = 4,
-            render_power = 3,
-            color        = "rgba(1a1a1aee)",
-        },
+       shadow = {
+        enabled      = true,
+        range        = 10,
+        render_power = 4,
+        offset       = { 2, 3 },
+        color        = "rgba(00000055)",
+    },
 
         blur = {
             enabled  = true,
@@ -234,21 +235,6 @@ hl.bind("XF86AudioPrev",  hl.dsp.exec_cmd("playerctl previous"),   { locked = tr
 --------------------------------
 ---- WINDOWS AND WORKSPACES ----
 --------------------------------
-
--- Layer rules
-hl.layer_rule({
-    name         = "blur_ignore_alpha",
-    match        = { namespace = "^(anyrun)" },
-    ignore_alpha = 0.1,
-    blur         = true,
-})
-
-hl.layer_rule({
-    name  = "blur-logout",
-    match = { namespace = "^(logout_dialog)" },
-    blur  = true,
-})
-
 
 -- Window rules
 hl.window_rule({
