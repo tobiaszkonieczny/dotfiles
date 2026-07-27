@@ -1,11 +1,28 @@
 config_version = 2
 
-[bar.default]
-background_opacity = 0.84999998100101948
-font_family = "Geist"
+[bar]
+order = [ "default" ]
 
-[control_center.calendar]
-show_events_card = false
+    [bar.default]
+    background_opacity = 0.84999998100101948
+    capsule = true
+    capsule_fill = "on_secondary"
+    capsule_opacity = 0.0
+    center = [ "clock", "audio_visualizer" ]
+    end = [ "media", "network", "bluetooth", "volume", "brightness", "battery", "tray", "session" ]
+    font_family = "Geist"
+    panel_overlap = 0
+    start = [ "clipboard", "workspaces" ]
+    widget_spacing = 0
+
+[brightness]
+enable_ddcutil = true
+
+[calendar]
+enabled = true
+
+    [calendar.account.hyprland_google]
+    type = "google"
 
 [desktop_widgets]
 schema_version = 2
@@ -18,8 +35,9 @@ widget_order = []
 
     [desktop_widgets.widget]
 
-[hooks]
-wallpaper_changed = "/home/tobia/dotfiles/waypaper/changewall-noctalia.sh"
+[location]
+address = "Marklowice, Poland"
+auto_locate = true
 
 [lockscreen_widgets]
 enabled = true
@@ -30,9 +48,7 @@ widget_order = [
     "lockscreen-widget-0000000000000001",
     "lockscreen-widget-0000000000000002",
     "lockscreen-widget-0000000000000003",
-    "lockscreen-widget-0000000000000004",
-    "lockscreen-widget-0000000000000005",
-    "lockscreen-widget-0000000000000006"
+    "lockscreen-widget-0000000000000004"
 ]
 
     [lockscreen_widgets.grid]
@@ -44,7 +60,7 @@ widget_order = [
     box_height = 70.0
     box_width = 400.0
     cx = 1280.0
-    cy = 1357.0
+    cy = 563.0
     output = "DP-1"
     rotation = 0.0
     type = "login_box"
@@ -65,7 +81,7 @@ widget_order = [
     box_height = 70.0
     box_width = 400.0
     cx = 960.0
-    cy = 961.0
+    cy = 505.0
     output = "eDP-1"
     rotation = 0.0
     type = "login_box"
@@ -85,74 +101,80 @@ widget_order = [
     [lockscreen_widgets.widget.lockscreen-widget-0000000000000001]
     box_height = 256.0
     box_width = 576.0
-    cx = 1280.0
-    cy = 336.0
+    cx = 1264.0
+    cy = 384.0
     output = "DP-1"
     rotation = 0.0
     type = "clock"
 
         [lockscreen_widgets.widget.lockscreen-widget-0000000000000001.settings]
-        background_opacity = 0.0
+        background = true
+        background_color = "surface"
+        background_opacity = 0.80000000000000004
+        background_padding = 10
+        background_radius = 12
+        center_text = false
+        circle = true
         clock_style = "digital"
-        shadow = false
+        color = "on_surface"
+        font_family = ""
+        format = "{:%H:%M}"
+        shadow = true
+        timezone = ""
 
     [lockscreen_widgets.widget.lockscreen-widget-0000000000000002]
-    box_height = 176.0
-    box_width = 448.0
-    cx = 368.0
-    cy = 792.0
+    box_height = 688.0
+    box_width = 2576.0
+    cx = 1280.0
+    cy = 1104.0
     output = "DP-1"
     rotation = 0.0
     type = "audio_visualizer"
 
         [lockscreen_widgets.widget.lockscreen-widget-0000000000000002.settings]
-        bands = 8
+        background = false
+        bands = 64
+        centered = false
         show_when_idle = true
 
     [lockscreen_widgets.widget.lockscreen-widget-0000000000000003]
-    box_height = 144.0
-    box_width = 448.0
-    cx = 368.0
-    cy = 616.0
-    output = "DP-1"
+    box_height = 256.0
+    box_width = 576.0
+    cx = 960.0
+    cy = 316.0
+    output = "eDP-1"
     rotation = 0.0
-    type = "volume"
+    type = "clock"
+
+        [lockscreen_widgets.widget.lockscreen-widget-0000000000000003.settings]
+        background = true
+        background_color = "surface"
+        background_opacity = 0.80000000000000004
+        background_padding = 10
+        background_radius = 12
+        center_text = false
+        circle = true
+        clock_style = "digital"
+        color = "on_surface"
+        font_family = ""
+        format = "{:%H:%M}"
+        shadow = true
+        timezone = ""
 
     [lockscreen_widgets.widget.lockscreen-widget-0000000000000004]
-    box_height = 176.0
-    box_width = 448.0
-    cx = 320.0
-    cy = 708.0
+    box_height = 384.0
+    box_width = 1936.0
+    cx = 960.0
+    cy = 888.0
     output = "eDP-1"
     rotation = 0.0
     type = "audio_visualizer"
 
         [lockscreen_widgets.widget.lockscreen-widget-0000000000000004.settings]
-        bands = 8
+        background = false
+        bands = 64
+        centered = false
         show_when_idle = true
-
-    [lockscreen_widgets.widget.lockscreen-widget-0000000000000005]
-    box_height = 144.0
-    box_width = 448.0
-    cx = 320.0
-    cy = 524.0
-    output = "eDP-1"
-    rotation = 0.0
-    type = "volume"
-
-    [lockscreen_widgets.widget.lockscreen-widget-0000000000000006]
-    box_height = 256.0
-    box_width = 576.0
-    cx = 960.0
-    cy = 252.0
-    output = "eDP-1"
-    rotation = 0.0
-    type = "clock"
-
-        [lockscreen_widgets.widget.lockscreen-widget-0000000000000006.settings]
-        background_opacity = 0.0
-        clock_style = "digital"
-        shadow = false
 
 [notification]
 background_opacity = 0.89999997988343239
@@ -182,8 +204,8 @@ source = "wallpaper"
 wallpaper_scheme = "m3-tonal-spot"
 
     [theme.templates]
-    builtin_ids = [ "cava", "foot", "hyprland" ]
-    community_ids = [ "zen-browser", "obsidian", "vscode", "zed", "discord", "yazi", "hyprtoolkit" ]
+    builtin_ids = [ "cava", "foot", "gtk3", "gtk4", "hyprland" ]
+    community_ids = [ "zen-browser", "discord", "obsidian", "vscode", "zed", "steam", "hyprtoolkit", "papirus-icons", "yazi" ]
 
 [wallpaper]
 directory = "/home/tobia/Pictures/wallpapers"
@@ -200,3 +222,10 @@ transition_on_startup = true
 
     [wallpaper.monitors.eDP-1]
     path = "/home/tobia/Pictures/wallpapers/bebop.jpg"
+
+[widget.audio_visualizer]
+width = 97
+
+[widget.media]
+enable_scroll = false
+max_length = 123

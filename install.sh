@@ -104,33 +104,19 @@ for module in "${FINAL_SELECTION[@]}"; do
 
     # Run Stow
     stow -R "$module"
-
-    # Post-install hook for Anyrun (username patch)
-    if [[ "$module" == "anyrun" ]]; then
-        [ -f "$CONFIG_DIR/anyrun/style.css.template" ] && \
-        sed "s/{{USER}}/$(whoami)/g" "$CONFIG_DIR/anyrun/style.css.template" > "$CONFIG_DIR/anyrun/style.css"
-    fi
 done
 
 echo -e "\n${GREEN}Done! All selected dots are linked.${NC}"
 
-echo -e "\n${BLUE}[INFO]${NC} Initializing colors and wallpaper..."
+echo -e "\n${BLUE}[INFO]${NC} Setting up default wallpaper..."
 
 DEFAULT_WALLPAPER="$DOTFILES_DIR/wallpaper/default.jpg"
 
 if [ -f "$DEFAULT_WALLPAPER" ]; then
-    if command -v wal &> /dev/null; then
-        wal -q -i "$DEFAULT_WALLPAPER"
-        echo -e "${GREEN}${CHECKED}${NC} Pywal cache initialized."
-    fi
-
-    if command -v awww &> /dev/null; then
-        awww "$DEFAULT_WALLPAPER" &> /dev/null || true
-        echo -e "${GREEN}${CHECKED}${NC} Wallpaper set via awww (if Wayland session active)."
-    fi
+    mkdir -p "$HOME/Pictures/wallpapers"
+    cp "$DEFAULT_WALLPAPER" "$HOME/Pictures/wallpapers/default.jpg" 2>/dev/null
+    echo -e "${GREEN}${CHECKED}${NC} Copied default wallpaper to ~/Pictures/wallpapers/."
+    echo -e "       Noctalia will pick it up and generate its theme on first launch."
 else
     echo -e "${YELLOW}[!]${NC} Default wallpaper not found at $DEFAULT_WALLPAPER"
 fi
-
-mkdir -p "$HOME/Pictures/wallpapers"
-cp "$DEFAULT_WALLPAPER" "$HOME/Pictures/wallpapers/default.jpg" 2>/dev/null

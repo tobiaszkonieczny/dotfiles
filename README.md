@@ -17,9 +17,9 @@
 
 # Hyprland Dotfiles
 
-A clean, wallpaper-driven Hyprland setup built around **Pywal** - every color in the config (waybar, foot, swaync, hyprlock, anyrun) is generated dynamically from your wallpaper. Swap the wallpaper, and the entire system recolors itself automatically.
+A clean, wallpaper-driven Hyprland setup built around **Noctalia Shell** (a Quickshell-based desktop shell) - every color in the config (bar, launcher, notifications, terminal, GTK, lock screen, Hyprland borders) is generated dynamically from your wallpaper's Material You palette. Swap the wallpaper from the built-in wallpaper panel, and the entire system recolors itself automatically.
 
-The setup uses the **Colloid GTK theme** and **Tela Circle** icon theme for a cohesive look, **Geist Mono Nerd** as the terminal font, and **Rose Pine** as the cursor theme. The aesthetic leans minimal and dark, with transparent surfaces that adapt to whatever palette Pywal generates.
+The setup uses the **Colloid GTK theme** and **Tela Circle** icon theme for a cohesive shape/icon look, **Geist Mono Nerd** as the terminal font, **Geist** for shell UI text, and **Rose Pine** as the cursor theme. The aesthetic leans minimal and dark, with transparent/blurred surfaces that adapt to whatever palette Noctalia generates.
 
 ## 🚀 Installation
 
@@ -55,14 +55,9 @@ If you want this setup to be fully functional:
 | **Compositor**    | `hyprland`          | Smooth Wayland tiling WM                   |
 | **File Linker**   | `Stow   `           | Creates config symlinks (used by install script)|
 | **Polkit Agent**  | `hyprpolkitagent`   | Necessary for elevation prompts (GUI sudo) |
-| **Status Bar**    | `waybar`            | Highly customizable GTK bar                |
-| **App Launcher**  | `anyrun`            | Fast and minimal runner                    |
+| **Shell Toolkit** | `quickshell`        | QML-based Wayland shell toolkit that Noctalia runs on |
+| **Desktop Shell** | `noctalia-shell`    | Bar, app launcher, notification center, control center, lock screen, wallpaper picker and dynamic theming - all in one |
 | **Terminal**      | `foot`              | Lightweight Wayland terminal               |
-| **Colors**        | `python-pywal`      | Generates color schemes from images        |
-| **Notifications** | `swaync`            | Wayland notification center                |
-| **Wallpaper**     | `waypaper` + `awww` | GUI and daemon for managing wallpapers     |
-| **Screen Lock**   | `hyprlock`          | Elegant lockscreen for Hyprland            |
-| **Logout Menu**   | `wlogout`           | Wayland logout menu                        |
 | **Geist Mono Nerd Font**| `otf-geist-mono-nerd`| Primary font for the terminal and bar icons.|
 | **Geist Sans**    | `ttf-geist`          | Secondary font for UI elements             |
 | **Portal**        | `xdg-desktop-portal-hyprland` | Enables screen sharing, file dialogs, and app integration on Wayland |
@@ -77,10 +72,10 @@ If you want this setup to be fully functional:
 | `grim` + `slurp` | Screenshot area selection (`$mainMod + SHIFT + P`) |
 | `wl-clipboard`   | Copying screenshots/text to system clipboard       |
 | `brightnessctl`  | Laptop screen brightness control                   |
-| `pavucontrol`    | Audio settings (invoked via waybar or keybinds)    |
+| `pavucontrol`    | Audio settings (invoked via Noctalia bar or keybinds) |
 | `playerctl`      | Media control (Play/Pause/Next keys)               |
-| `nm-applet`      | Network Manager tray icon                          |
-| `blueman`        | Bluetooth manager applet                           |
+| `network-manager-applet` | Provides `nm-connection-editor` for advanced network settings (basic status/toggle lives in the Noctalia bar) |
+| `blueman`        | Provides `blueman-manager` for advanced Bluetooth settings (basic status/toggle lives in the Noctalia bar) |
 | `wireplumber`    | PipeWire session manager (required for audio/video to work) |
 
  ### Disclaimer:
@@ -88,7 +83,7 @@ If you want this setup to be fully functional:
  Feel free to change it to something else after installation, it's just that initial keybindings in this config point to foot as a terminal. If you install these, everything should work out of the box.
 
 ## ✨ Nice-to-have Programs
-These are my personal preferences, and are mentioned in hyprland.conf:
+These are my personal preferences, and are mentioned in hyprland.lua:
 
 |**Category**      |**Program**           |**Description**|
 |---               |---                   |---                  |
@@ -96,9 +91,9 @@ These are my personal preferences, and are mentioned in hyprland.conf:
 |**Web Browser**   |`zen-browser`         |Minimalist browser (matches my opacity rules)|
 |**IDE**           |`code-oss`            |VS Code (Open Source version)|
 |**Communication** |`discord` & `caprine` |Apps with specific transparency rules|
-|**System Info**   |`fastfetch` & `btop`  |Terminal system stats|
+|**System Info**   |`fastfetch` & `btop`  |Terminal system stats, styled with a Noctalia-generated theme|
 |**Cursor Theme**  |`rose-pine-hyprcursor`|The cursor theme used in this config|
-|**GTK Theme**     |`colloid-gtk-theme`   |GTK theme used in this config (apply via nwg-look)|
+|**GTK Theme**     |`colloid-gtk-theme`   |GTK shape theme used in this config (colors are recolored dynamically by Noctalia, apply the base theme via nwg-look)|
 |**Icon Theme**    |`tela-circle-icon-theme`|Icon theme used in this config (apply via nwg-look)|
 | **Theme Manager** | `nwg-look`         | Essential for setting GTK themes/icons        |
 | **File Support**  | `gvfs`, `tumbler` & `ffmpegthumbnailer` | Trash, drive mounting, and image/video thumbnails |
@@ -112,18 +107,20 @@ These are my personal preferences, and are mentioned in hyprland.conf:
 
 > `$mainMod` = Super (Windows key)
 
-### Apps
+### Apps & Noctalia Shell
 | **Keybind**               | **Action**                        |
 | ------------------------- | --------------------------------- |
 | `Super + Q`               | Open terminal (foot)              |
 | `Super + Shift + Q`       | Open terminal with fastfetch      |
 | `Super + E`               | Open file manager (thunar)        |
-| `Super + W`               | Open Waypaper                     |
-| `Alt + Space`             | Open app launcher (anyrun)        |
+| `Super + Space`           | Open app launcher (Noctalia)      |
+| `Super + A`               | Toggle control center (Noctalia)  |
+| `Super + N`               | Toggle notification center (Noctalia) |
+| `Super + W`               | Toggle wallpaper picker (Noctalia)|
+| `Super + ,`               | Toggle Noctalia settings          |
+| `Super + X`               | Toggle session/power menu (Noctalia) |
+| `Super + Shift + X`       | Lock screen (Noctalia)            |
 | `Super + H`               | Color picker (hyprpicker)         |
-| `Super + N`               | Toggle notification center        |
-| `Super + X`               | Logout menu (wlogout)             |
-| `Super + Shift + X`       | Lock screen (hyprlock)            |
 | `Super + Shift + P`       | Screenshot (area select)          |
 
 ### Window Management
@@ -153,12 +150,11 @@ These are my personal preferences, and are mentioned in hyprland.conf:
 ## ✅ Post-Install Checklist
 
 After running `./install.sh` and starting Hyprland, go through this before anything else:
-- [ x ] Pywal Initialization: The installer automatically generates an initial color palette from dotfiles/wallpaper/default.jpg.
 - [ ] Start hyprland with `start-hyprland`
-- [ ] Put your wallpapers in `~/Pictures/wallpapers/`
-- [ ] Open Waypaper (`Super + W`) and select a wallpaper - this triggers Pywal to generate color files in `~/.cache/wal/`
+- [ ] Put your wallpapers in `~/Pictures/wallpapers/` (the installer copies a default one in for you)
+- [ ] Open the wallpaper picker (`Super + W`) and pick a wallpaper - Noctalia regenerates the whole color palette (bar, launcher, foot, GTK, Hyprland borders, lock screen) from it instantly
 - [ ] Set GTK theme and icons via `nwg-look`
-- [ ] Check monitors with `hyprctl monitors` and adjust `hyprland.conf` if needed
+- [ ] Check monitors with `hyprctl monitors` and adjust `hyprland.lua` if needed
 - [ ] Verify audio works - if not, check `wireplumber` is running (`systemctl --user status wireplumber`)
 
 
@@ -173,13 +169,11 @@ eval "$(starship init zsh)"
 # ⚠️ Important Notes
 ## 🖥️ Monitor Setup
 
-My config is tailored for a triple monitor setup (1080p laptop + 1440p Ultrawide + 1440p 144Hz). If your screen goes black or resolution is wrong, edit the monitors section in hyprland.conf to match your hardware names (check them with hyprctl monitors).
+My config is tailored for a dual monitor setup (1080p laptop + 1440p 144Hz external). If your screen goes black or resolution is wrong, edit the `hl.monitor(...)` lines at the top of `hyprland.lua` to match your hardware names (check them with `hyprctl monitors`).
 
-## 🎨 Wallpaper & Pywal
-This config assumes, that you have your wallpapers under ~/Pictures/wallpapers. Put some images in this directory, and these will be displayed in Waypaper. 
+## 🎨 Wallpaper & Theming
+This config assumes you have your wallpapers under `~/Pictures/wallpapers`. Put some images in this directory - they'll show up in Noctalia's wallpaper picker (`Super + W`).
 
-After install, run Waypaper and select a wallpaper. This will trigger Pywal to generate the necessary color files in ~/.cache/wal/. Without this, some elements might appear white or transparent, or you might get some errors.
-
-Run Waypaper (`$mainMod + W`), pick a wallpaper, and let Pywal do its magic. The config expects colors to exist in ~/.cache/wal/.
+Noctalia generates a Material You color scheme straight from the selected wallpaper and applies it live to the bar, launcher, notifications, control center, foot terminal, GTK apps, btop, and Hyprland's active/inactive border colors - no separate color-generation step (e.g. Pywal) is needed. Theme generation state lives in `~/.local/state/noctalia/settings.toml`, and generated templates (foot theme, `noctalia.lua` border colors, terminal sequences, GTK CSS, etc.) are written out automatically whenever the wallpaper or theme changes.
 
 Wallpaper: Original art from the movie Your Name (Kimi no Na wa) by CoMix Wave Films. All rights belong to their respective owners.
