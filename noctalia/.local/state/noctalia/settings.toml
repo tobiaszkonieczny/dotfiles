@@ -179,9 +179,10 @@ builtin = "Noctalia"
 community_palette = "Oxocarbon"
 mode = "dark"
 source = "wallpaper"
+wallpaper_scheme = "m3-tonal-spot"
 
     [theme.templates]
-    builtin_ids = [ "btop", "cava", "foot", "hyprland" ]
+    builtin_ids = [ "cava", "foot", "hyprland" ]
     community_ids = [ "zen-browser", "obsidian", "vscode", "zed", "discord", "yazi", "hyprtoolkit" ]
 
 [wallpaper]
@@ -189,13 +190,13 @@ directory = "/home/tobia/Pictures/wallpapers"
 transition_on_startup = true
 
     [wallpaper.default]
-    path = "/home/tobia/Pictures/wallpapers/ur-name-3.jpg"
+    path = "/home/tobia/Pictures/wallpapers/bebop.jpg"
 
     [wallpaper.last]
-    path = "/home/tobia/Pictures/wallpapers/ur-name-3.jpg"
+    path = "/home/tobia/Pictures/wallpapers/bebop.jpg"
 
     [wallpaper.monitors.DP-1]
-    path = "/home/tobia/Pictures/wallpapers/ur-name-3.jpg"
+    path = "/home/tobia/Pictures/wallpapers/bebop.jpg"
 
     [wallpaper.monitors.eDP-1]
-    path = "/home/tobia/Pictures/wallpapers/ur-name-3.jpg"
+    path = "/home/tobia/Pictures/wallpapers/bebop.jpg"
