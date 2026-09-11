@@ -6,14 +6,33 @@ order = [ "default" ]
     [bar.default]
     background_opacity = 0.84999998100101948
     capsule = true
-    capsule_fill = "on_secondary"
-    capsule_opacity = 0.0
-    center = [ "clock", "audio_visualizer" ]
-    end = [ "media", "network", "bluetooth", "volume", "brightness", "battery", "tray", "session" ]
+    capsule_fill = "outline"
+    capsule_opacity = 0.28999999351799488
+    capsule_thickness = 0.74999998696148396
+    center = [ "group:g2" ]
+    end = [ "group:g1", "session" ]
     font_family = "Geist"
+    margin_ends = 0
     panel_overlap = 0
+    position = "left"
     start = [ "clipboard", "workspaces" ]
-    widget_spacing = 0
+    widget_spacing = 4
+
+        [[bar.default.capsule_group]]
+        enabled = true
+        fill = "outline"
+        id = "g1"
+        members = [ "media", "bluetooth", "network", "volume", "brightness", "battery", "tray", "widget" ]
+        opacity = 0.30000001192092896
+        padding = 6.0
+
+        [[bar.default.capsule_group]]
+        enabled = true
+        fill = "outline"
+        id = "g2"
+        members = [ "clock", "audio_visualizer" ]
+        opacity = 0.28999999165534973
+        padding = 6.0
 
 [brightness]
 enable_ddcutil = true
@@ -24,16 +43,33 @@ enabled = true
     [calendar.account.hyprland_google]
     type = "google"
 
+[control_center]
+width = 800
+
 [desktop_widgets]
+enabled = false
 schema_version = 2
-widget_order = []
+widget_order = [ "desktop-widget-0000000000000001" ]
 
     [desktop_widgets.grid]
     cell_size = 16
     major_interval = 4
     visible = true
 
-    [desktop_widgets.widget]
+    [desktop_widgets.widget.desktop-widget-0000000000000001]
+    box_height = 256.0
+    box_width = 512.0
+    cx = 320.0
+    cy = 224.0
+    output = "DP-1"
+    rotation = 0.0
+    type = "media_player"
+
+[dock]
+cross_axis_padding = 0
+icon_size = 24
+main_axis_padding = 100
+position = "right"
 
 [location]
 address = "Marklowice, Poland"
@@ -47,8 +83,8 @@ widget_order = [
     "lockscreen-login-box@eDP-1",
     "lockscreen-widget-0000000000000001",
     "lockscreen-widget-0000000000000002",
-    "lockscreen-widget-0000000000000003",
-    "lockscreen-widget-0000000000000004"
+    "lockscreen-widget-0000000000000004",
+    "lockscreen-widget-0000000000000005"
 ]
 
     [lockscreen_widgets.grid]
@@ -57,17 +93,17 @@ widget_order = [
     visible = true
 
     [lockscreen_widgets.widget."lockscreen-login-box@DP-1"]
-    box_height = 70.0
+    box_height = 80.0
     box_width = 400.0
     cx = 1280.0
-    cy = 563.0
+    cy = 376.0
     output = "DP-1"
     rotation = 0.0
     type = "login_box"
 
         [lockscreen_widgets.widget."lockscreen-login-box@DP-1".settings]
         background_color = "surface"
-        background_opacity = 0.65000000000000002
+        background_opacity = 0.0
         background_radius = 12.0
         center_password_text = false
         input_opacity = 0.80000000000000004
@@ -81,17 +117,17 @@ widget_order = [
     box_height = 70.0
     box_width = 400.0
     cx = 960.0
-    cy = 505.0
+    cy = 383.0
     output = "eDP-1"
     rotation = 0.0
     type = "login_box"
 
         [lockscreen_widgets.widget."lockscreen-login-box@eDP-1".settings]
         background_color = "surface"
-        background_opacity = 0.88
+        background_opacity = 0.0
         background_radius = 12.0
         center_password_text = false
-        input_opacity = 1.0
+        input_opacity = 0.84999999999999998
         input_radius = 6.0
         show_caps_lock = true
         show_keyboard_layout = true
@@ -99,16 +135,16 @@ widget_order = [
         show_password_hint = false
 
     [lockscreen_widgets.widget.lockscreen-widget-0000000000000001]
-    box_height = 256.0
-    box_width = 576.0
-    cx = 1264.0
-    cy = 384.0
+    box_height = 160.0
+    box_width = 432.0
+    cx = 1304.0
+    cy = 272.0
     output = "DP-1"
-    rotation = 0.0
+    rotation = -0.0
     type = "clock"
 
         [lockscreen_widgets.widget.lockscreen-widget-0000000000000001.settings]
-        background = true
+        background = false
         background_color = "surface"
         background_opacity = 0.80000000000000004
         background_padding = 10
@@ -116,56 +152,34 @@ widget_order = [
         center_text = false
         circle = true
         clock_style = "digital"
-        color = "on_surface"
+        color = "primary"
         font_family = ""
         format = "{:%H:%M}"
-        shadow = true
+        shadow = false
         timezone = ""
 
     [lockscreen_widgets.widget.lockscreen-widget-0000000000000002]
-    box_height = 688.0
+    box_height = 288.0
     box_width = 2576.0
     cx = 1280.0
-    cy = 1104.0
+    cy = 1296.0
     output = "DP-1"
-    rotation = 0.0
+    rotation = -0.0
     type = "audio_visualizer"
 
         [lockscreen_widgets.widget.lockscreen-widget-0000000000000002.settings]
         background = false
         bands = 64
         centered = false
+        color_1 = "primary"
+        color_2 = "primary"
         show_when_idle = true
 
-    [lockscreen_widgets.widget.lockscreen-widget-0000000000000003]
-    box_height = 256.0
-    box_width = 576.0
-    cx = 960.0
-    cy = 316.0
-    output = "eDP-1"
-    rotation = 0.0
-    type = "clock"
-
-        [lockscreen_widgets.widget.lockscreen-widget-0000000000000003.settings]
-        background = true
-        background_color = "surface"
-        background_opacity = 0.80000000000000004
-        background_padding = 10
-        background_radius = 12
-        center_text = false
-        circle = true
-        clock_style = "digital"
-        color = "on_surface"
-        font_family = ""
-        format = "{:%H:%M}"
-        shadow = true
-        timezone = ""
-
     [lockscreen_widgets.widget.lockscreen-widget-0000000000000004]
-    box_height = 384.0
-    box_width = 1936.0
+    box_height = 208.0
+    box_width = 1904.0
     cx = 960.0
-    cy = 888.0
+    cy = 980.0
     output = "eDP-1"
     rotation = 0.0
     type = "audio_visualizer"
@@ -176,15 +190,48 @@ widget_order = [
         centered = false
         show_when_idle = true
 
+    [lockscreen_widgets.widget.lockscreen-widget-0000000000000005]
+    box_height = 160.0
+    box_width = 432.0
+    cx = 984.0
+    cy = 268.0
+    output = "eDP-1"
+    rotation = -0.0
+    type = "clock"
+
+        [lockscreen_widgets.widget.lockscreen-widget-0000000000000005.settings]
+        background = false
+        background_color = "surface"
+        background_opacity = 0.80000000000000004
+        background_padding = 10
+        background_radius = 12
+        center_text = false
+        circle = true
+        clock_style = "digital"
+        color = "primary"
+        font_family = ""
+        format = "{:%H:%M}"
+        shadow = false
+        timezone = ""
+
 [notification]
 background_opacity = 0.89999997988343239
 offset_x = 30
 offset_y = 20
 
+[plugin_settings."yuuto/arch-updater"]
+auto_check_hours = 24
+
+[plugins]
+enabled = [ "yuuto/arch-updater" ]
+
 [shell]
 app_icon_color = "on_secondary"
+avatar_path = "/home/tobia/Pictures/76-767766_art-mine-black-and-white-manga-manga-cap.png"
 font_family = "Geist"
 panel_anchor_bar = "default"
+password_style = "random"
+polkit_agent = true
 
     [shell.launcher.providers.calculator]
     prefix = ""
@@ -195,33 +242,38 @@ panel_anchor_bar = "default"
 
     [shell.screen_corners]
     enabled = true
+    size = 26
 
 [theme]
-builtin = "Noctalia"
+builtin = "Ayu"
 community_palette = "Oxocarbon"
 mode = "dark"
 source = "wallpaper"
 wallpaper_scheme = "m3-tonal-spot"
 
     [theme.templates]
-    builtin_ids = [ "cava", "foot", "gtk3", "gtk4", "hyprland" ]
-    community_ids = [ "zen-browser", "discord", "obsidian", "vscode", "zed", "steam", "hyprtoolkit", "papirus-icons", "yazi" ]
+    builtin_ids = [ "cava", "foot", "gtk3", "gtk4", "hyprland", "kcolorscheme" ]
+    community_ids = [ "discord", "obsidian", "vscode", "zed", "steam", "hyprtoolkit", "papirus-icons", "yazi" ]
 
 [wallpaper]
 directory = "/home/tobia/Pictures/wallpapers"
 transition_on_startup = true
 
     [wallpaper.default]
-    path = "/home/tobia/Pictures/wallpapers/bebop.jpg"
+    path = "/home/tobia/Pictures/wallpapers/ur-name-3.jpg"
 
     [wallpaper.last]
-    path = "/home/tobia/Pictures/wallpapers/bebop.jpg"
+    path = "/home/tobia/Pictures/wallpapers/ur-name-3.jpg"
 
     [wallpaper.monitors.DP-1]
-    path = "/home/tobia/Pictures/wallpapers/bebop.jpg"
+    path = "/home/tobia/Pictures/wallpapers/ur-name-3.jpg"
 
     [wallpaper.monitors.eDP-1]
-    path = "/home/tobia/Pictures/wallpapers/bebop.jpg"
+    path = "/home/tobia/Pictures/wallpapers/ur-name-3.jpg"
+
+    [[wallpaper.favorite]]
+    path = "/home/tobia/Pictures/wallpapers/Gemini_Generated_Image_35ipnz35ipnz35ip.png"
+    theme_mode = "auto"
 
 [widget.audio_visualizer]
 width = 97
@@ -229,3 +281,9 @@ width = 97
 [widget.media]
 enable_scroll = false
 max_length = 123
+
+[widget.widget]
+type = "yuuto/arch-updater:widget"
+
+[widget.workspaces]
+display = "none"

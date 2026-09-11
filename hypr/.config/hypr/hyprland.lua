@@ -21,7 +21,6 @@ local fileManager = "thunar"
 hl.on("hyprland.start", function()
     hl.exec_cmd("noctalia")
     hl.exec_cmd("kdeconnect-indicator")
-    hl.exec_cmd("systemctl --user start hyprpolkitagent")
 end)
 
 
@@ -30,6 +29,11 @@ end)
 -------------------------------
 
 hl.env("HYPRCURSOR_THEME", "rose-pine-hyprcursor")
+hl.env("QT_QPA_PLATFORMTHEME", "qt6ct")
+hl.env("MOZ_ENABLE_WAYLAND", "1")              
+hl.env("ELECTRON_OZONE_PLATFORM_HINT", "auto") 
+hl.env("XDG_CURRENT_DESKTOP", "Hyprland")      
+hl.env("XCURSOR_SIZE", "24")                   
 
 
 -----------------------
@@ -39,7 +43,7 @@ hl.env("HYPRCURSOR_THEME", "rose-pine-hyprcursor")
 hl.config({
     general = {
         gaps_in  = 5,
-        gaps_out =  {top = 10, right = 20, bottom = 20, left = 20 },
+        gaps_out =  {top = 10, right = 10, bottom = 10, left = 10 },
 
         border_size = 2,
 
