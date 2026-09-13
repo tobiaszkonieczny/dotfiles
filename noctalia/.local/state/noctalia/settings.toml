@@ -1,4 +1,4 @@
-config_version = 2
+config_version = 14
 
 [bar]
 order = [ "default" ]
@@ -93,11 +93,13 @@ widget_order = [
     visible = true
 
     [lockscreen_widgets.widget."lockscreen-login-box@DP-1"]
-    box_height = 80.0
-    box_width = 400.0
+    box_height = 196.0
+    box_width = 720.0
     cx = 1280.0
     cy = 376.0
     output = "DP-1"
+    placement_height = 0.0
+    placement_width = 0.0
     rotation = 0.0
     type = "login_box"
 
@@ -108,17 +110,23 @@ widget_order = [
         center_password_text = false
         input_opacity = 0.80000000000000004
         input_radius = 6.0
+        layout = "regular"
         show_caps_lock = true
         show_keyboard_layout = true
         show_login_button = true
-        show_password_hint = false
+        show_media = true
+        show_session_buttons = true
+        show_unlock_hint = true
+        show_weather = true
 
     [lockscreen_widgets.widget."lockscreen-login-box@eDP-1"]
-    box_height = 70.0
-    box_width = 400.0
+    box_height = 196.0
+    box_width = 720.0
     cx = 960.0
     cy = 383.0
     output = "eDP-1"
+    placement_height = 1080.0
+    placement_width = 1920.0
     rotation = 0.0
     type = "login_box"
 
@@ -129,10 +137,14 @@ widget_order = [
         center_password_text = false
         input_opacity = 0.84999999999999998
         input_radius = 6.0
+        layout = "regular"
         show_caps_lock = true
         show_keyboard_layout = true
         show_login_button = true
-        show_password_hint = false
+        show_media = true
+        show_session_buttons = true
+        show_unlock_hint = true
+        show_weather = true
 
     [lockscreen_widgets.widget.lockscreen-widget-0000000000000001]
     box_height = 160.0
@@ -140,6 +152,8 @@ widget_order = [
     cx = 1304.0
     cy = 272.0
     output = "DP-1"
+    placement_height = 0.0
+    placement_width = 0.0
     rotation = -0.0
     type = "clock"
 
@@ -164,6 +178,8 @@ widget_order = [
     cx = 1280.0
     cy = 1296.0
     output = "DP-1"
+    placement_height = 0.0
+    placement_width = 0.0
     rotation = -0.0
     type = "audio_visualizer"
 
@@ -181,6 +197,8 @@ widget_order = [
     cx = 960.0
     cy = 980.0
     output = "eDP-1"
+    placement_height = 1080.0
+    placement_width = 1920.0
     rotation = 0.0
     type = "audio_visualizer"
 
@@ -196,6 +214,8 @@ widget_order = [
     cx = 984.0
     cy = 268.0
     output = "eDP-1"
+    placement_height = 1080.0
+    placement_width = 1920.0
     rotation = -0.0
     type = "clock"
 
@@ -213,6 +233,9 @@ widget_order = [
         format = "{:%H:%M}"
         shadow = false
         timezone = ""
+
+[nightlight]
+enabled = true
 
 [notification]
 background_opacity = 0.89999997988343239
@@ -233,6 +256,9 @@ panel_anchor_bar = "default"
 password_style = "random"
 polkit_agent = true
 
+    [shell.greeter_sync]
+    auto_sync = true
+
     [shell.launcher.providers.calculator]
     prefix = ""
 
@@ -252,7 +278,7 @@ source = "wallpaper"
 wallpaper_scheme = "m3-tonal-spot"
 
     [theme.templates]
-    builtin_ids = [ "cava", "foot", "gtk3", "gtk4", "hyprland", "kcolorscheme" ]
+    builtin_ids = [ "alacritty", "cava", "foot", "gtk3", "gtk4", "ghostty", "hyprland", "kcolorscheme", "kitty" ]
     community_ids = [ "discord", "obsidian", "vscode", "zed", "steam", "hyprtoolkit", "papirus-icons", "yazi" ]
 
 [wallpaper]
@@ -260,30 +286,29 @@ directory = "/home/tobia/Pictures/wallpapers"
 transition_on_startup = true
 
     [wallpaper.default]
-    path = "/home/tobia/Pictures/wallpapers/ur-name-3.jpg"
+    path = "/home/tobia/Pictures/wallpapers/1007102(1).jpg"
 
     [wallpaper.last]
-    path = "/home/tobia/Pictures/wallpapers/ur-name-3.jpg"
+    path = "/home/tobia/Pictures/wallpapers/1007102(1).jpg"
 
     [wallpaper.monitors.DP-1]
-    path = "/home/tobia/Pictures/wallpapers/ur-name-3.jpg"
+    path = "/home/tobia/Pictures/wallpapers/1007102(1).jpg"
 
     [wallpaper.monitors.eDP-1]
-    path = "/home/tobia/Pictures/wallpapers/ur-name-3.jpg"
-
-    [[wallpaper.favorite]]
-    path = "/home/tobia/Pictures/wallpapers/Gemini_Generated_Image_35ipnz35ipnz35ip.png"
-    theme_mode = "auto"
+    path = "/home/tobia/Pictures/wallpapers/1007102(1).jpg"
 
 [widget.audio_visualizer]
 width = 97
 
 [widget.media]
-enable_scroll = false
 max_length = 123
+
+    [widget.media.actions]
+    scroll_down = "none"
+    scroll_up = "none"
 
 [widget.widget]
 type = "yuuto/arch-updater:widget"
 
 [widget.workspaces]
-display = "none"
+show_labels = false
