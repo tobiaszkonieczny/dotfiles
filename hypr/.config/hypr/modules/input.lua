@@ -15,6 +15,11 @@ hl.config({
             natural_scroll = true,
             tap_to_click   = true,
         },
+        tablet = {
+            output = "DP-1",
+            region_size = { 3840, 2160 }
+
+        },
     },
 })
 

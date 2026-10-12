@@ -1,14 +1,14 @@
 -- Keybindings
 
 -- Programs used below
-local terminal    = "footclient"
+local terminal    = "foot"
 local fileManager = "thunar"
 
 local mainMod = "SUPER"
 local ipc = "noctalia msg "
 
 hl.bind(mainMod .. " + Q",         hl.dsp.exec_cmd(terminal))
-hl.bind(mainMod .. " + SHIFT + Q", hl.dsp.exec_cmd('footclient zsh -c "fastfetch; exec zsh"'))
+hl.bind(mainMod .. " + SHIFT + Q", hl.dsp.exec_cmd('foot zsh -c "fastfetch; exec zsh"'))
 hl.bind(mainMod .. " + C",         hl.dsp.window.close())
 hl.bind(mainMod .. " + E",         hl.dsp.exec_cmd(fileManager))
 hl.bind("SUPER + V", function()
