@@ -14,7 +14,7 @@ hl.window_rule({
 
 hl.window_rule({
     name              = "focus_on_activate",
-    match             = { class = "^(code-oss|zen|discord)$" },
+    match             = { class = "^(code-oss|zen|discord|dev.zed.Zed)$" },
     focus_on_activate = true,
 })
 

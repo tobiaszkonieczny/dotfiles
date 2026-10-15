@@ -1,16 +1,16 @@
 -- Keybindings
 
 -- Programs used below
-local terminal    = "foot"
-local fileManager = "thunar"
+local terminal    = "kitty -1"
 
 local mainMod = "SUPER"
 local ipc = "noctalia msg "
 
 hl.bind(mainMod .. " + Q",         hl.dsp.exec_cmd(terminal))
-hl.bind(mainMod .. " + SHIFT + Q", hl.dsp.exec_cmd('foot zsh -c "fastfetch; exec zsh"'))
+hl.bind(mainMod .. " + SHIFT + Q", hl.dsp.exec_cmd('kitty -1 zsh -c "fastfetch; exec zsh"'))
 hl.bind(mainMod .. " + C",         hl.dsp.window.close())
-hl.bind(mainMod .. " + E",         hl.dsp.exec_cmd(fileManager))
+hl.bind(mainMod .. " + E", hl.dsp.exec_cmd('kitty -1 zsh -c "yazi; exec zsh"'))
+hl.bind(mainMod .. " + T",         hl.dsp.exec_cmd("thunar"))
 hl.bind("SUPER + V", function()
   local w = hl.get_active_window()
   if w == nil then return end

@@ -2,3 +2,26 @@
 input_path = '~/.config/noctalia/templates/terminal-sequences'
 output_path = '~/.cache/terminal-sequences'
 post_hook = 'tee /dev/pts/[0-9]* < ~/.cache/terminal-sequences'
+
+[theme.templates.user.spotifast]
+input_path = "~/.config/noctalia/templates/spotifast.json"
+# Must be a regular file: Spotifast ignores symlinks in its themes folder
+output_path = "~/.config/spotifast/themes/noctalia.json"
+# Optional on Linux (Spotifast watches the folder), harmless as a fallback
+post_hook = "spotifast reload-themes"
+
+# Distinct syntax hues, harmonized toward the wallpaper palette (blend defaults to true)
+[theme.templates.custom_colors]
+syn_red    = "#f7768e"
+syn_orange = "#ff9e64"
+syn_yellow = "#e0af68"
+syn_green  = "#9ece6a"
+syn_cyan   = "#7dcfff"
+syn_blue   = "#7aa2f7"
+syn_purple = "#bb9af7"
+syn_pink   = "#ff79c6"
+
+# Zed theme: UI from Material 3 tokens, syntax from the colors above
+[theme.templates.user.zed_vivid]
+input_path  = "$XDG_CONFIG_HOME/noctalia/templates/zed-vivid.json"
+output_path = "$XDG_CONFIG_HOME/zed/themes/noctalia-vivid.json"

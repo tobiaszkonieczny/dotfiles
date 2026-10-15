@@ -1,0 +1,19 @@
+# ~/.config/yazi/yazi.toml
+
+[mgr]
+show_hidden    = false        # show dotfiles
+sort_by        = "natural"   # file2 before file10
+sort_dir_first = true        # directories above files
+linemode       = "size"      # file size next to the name
+scrolloff      = 5           # keep 5 rows of context around the cursor
+
+[opener]
+# Text files (and everything else yazi routes to "edit": JSON, JS, empty files...)
+# open in Zed, detached from the terminal.
+# "zeditor" is the binary from the Arch "zed" package;
+# change it to "zed" if you installed Zed with the official script.
+# %s is yazi's placeholder for the file paths (yazi quotes them itself).
+edit = [
+  { run = 'zeditor %s', orphan = true, desc = "Zed", for = "unix" },
+  { run = '${EDITOR:-vi} %s', block = true, desc = "Terminal editor", for = "unix" },
+]
