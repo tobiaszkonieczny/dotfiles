@@ -1,13 +1,15 @@
 -- Keybindings
 
 -- Programs used below
-local terminal    = "kitty -1"
+local terminal = "kitty -1"
+local browser = "zen2"
 
 local mainMod = "SUPER"
 local ipc = "noctalia msg "
 
 hl.bind(mainMod .. " + Q",         hl.dsp.exec_cmd(terminal))
 hl.bind(mainMod .. " + SHIFT + Q", hl.dsp.exec_cmd('kitty -1 zsh -c "fastfetch; exec zsh"'))
+hl.bind(mainMod .. " + Z", hl.dsp.exec_cmd(browser))
 hl.bind(mainMod .. " + C",         hl.dsp.window.close())
 hl.bind(mainMod .. " + E", hl.dsp.exec_cmd('kitty -1 zsh -c "yazi; exec zsh"'))
 hl.bind(mainMod .. " + T",         hl.dsp.exec_cmd("thunar"))
@@ -34,12 +36,12 @@ hl.bind(mainMod .. " + X", hl.dsp.exec_cmd(ipc .. "panel-toggle session"))
 hl.bind(mainMod .. " + SHIFT + X", hl.dsp.exec_cmd(ipc .. "session lock"))
 
 hl.bind("SUPER + M", function()
-  hl.dispatch(hl.dsp.exec_cmd("spotify", { float = true, move = {50, 70}, size ={1200,700} }))
+  hl.dispatch(hl.dsp.exec_cmd("spotifast", { float = true, move = {50, 70}, size ={1200,700} }))
   hl.dispatch(hl.dsp.exec_cmd('foot zsh -c "cava; exec zsh"', { float = true, move = {1300, 700}, size ={570,320} }))
 end)
 
 hl.bind(mainMod .. " + backslash", function()
-  hl.dispatch(hl.dsp.exec_cmd("spotify", { workspace = 1 }))
+  hl.dispatch(hl.dsp.exec_cmd("spotifast", { workspace = 1 }))
   hl.dispatch(hl.dsp.exec_cmd("zen", { workspace = 2 }))
 end)
 

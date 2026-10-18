@@ -14,13 +14,13 @@ hl.window_rule({
 
 hl.window_rule({
     name              = "focus_on_activate",
-    match             = { class = "^(code-oss|zen|discord|dev.zed.Zed)$" },
+    match             = { class = "^(code-oss|zen|discord|dev.zed.Zed|spotifast)$" },
     focus_on_activate = true,
 })
 
 hl.window_rule({
     name    = "opacity-strong",
-    match   = { class = "^(Caprine|Spotify)$" },
+    match   = { class = "^(Caprine)$" },
     opacity = "0.75",
 })
 
