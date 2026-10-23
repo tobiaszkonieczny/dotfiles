@@ -2,7 +2,9 @@
 
 [mgr]
 show_hidden    = false        # show dotfiles
-sort_by        = "natural"   # file2 before file10
+sort_by      = "mtime"   # alphabetical | natural | extension | size | btime | mtime | random
+sort_reverse = true      # true = najnowsze na górze
+sort_sensitive = false   # rozróżniaj wielkość liter
 sort_dir_first = true        # directories above files
 linemode       = "size"      # file size next to the name
 scrolloff      = 5           # keep 5 rows of context around the cursor
