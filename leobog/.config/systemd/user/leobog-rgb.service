@@ -1,5 +1,5 @@
 [Unit]
-Description=LEOBOG Hi75C keyboard color hold (re-sends live RGB color)
+Description=LEOBOG keyboard / MCHOSE dock color hold
 After=graphical-session.target
 PartOf=graphical-session.target
 

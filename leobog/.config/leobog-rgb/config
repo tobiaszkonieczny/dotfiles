@@ -1,0 +1,17 @@
+# leobog-rgb color tuning (defaults: DEFAULTS in leobog-rgb)
+# Edit here or with: leobog-rgb config <key> <value>  (applied immediately)
+# Brightness is not here: it lives in ~/.local/state/leobog-rgb/brightness (Super+F11/F12)
+
+saturation = 0.8  # all devices, >1 stronger, <1 softer
+
+keyboard_saturation = 1  # keyboard only, multiplied with saturation
+keyboard_gamma = 2.2  # higher = darker, more saturated low channels (less whitish)
+keyboard_red = 1  # white balance gains (0-1), calibrate with: leobog-rgb test ffffff
+keyboard_green = 0.9
+keyboard_blue = 0.75
+
+dock_saturation = 0.6  # dock only, multiplied with saturation
+dock_gamma = 1.5
+dock_red = 1
+dock_green = 0.9
+dock_blue = 0.75

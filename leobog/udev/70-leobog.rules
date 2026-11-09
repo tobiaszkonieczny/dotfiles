@@ -1,3 +1,5 @@
 # LEOBOG Hi75C (Pro): 2.4 GHz dongle and wired mode - allow the logged-in user to access RGB hidraw
 KERNEL=="hidraw*", ATTRS{idVendor}=="3554", ATTRS{idProduct}=="fa09", TAG+="uaccess"
 KERNEL=="hidraw*", ATTRS{idVendor}=="258a", ATTRS{idProduct}=="010c", TAG+="uaccess"
+# MCHOSE MagDock (A7 V2 Pro+ charging dock with RGB)
+KERNEL=="hidraw*", ATTRS{idVendor}=="3837", ATTRS{idProduct}=="1012", TAG+="uaccess"
