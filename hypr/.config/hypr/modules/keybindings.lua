@@ -49,6 +49,12 @@ hl.bind(mainMod .. " + backslash", function()
   hl.dispatch(hl.dsp.exec_cmd("zen", { workspace = 2 }))
 end)
 
+-- local studia = os.getenv("HOME") .. "/Documents/Studia/tools/studia.py"
+-- hl.bind("less",         hl.dsp.exec_cmd(studia .. " all"))
+-- hl.bind(mainMod .. " + SHIFT + G", hl.dsp.exec_cmd(studia .. " all"))
+-- hl.bind(mainMod .. " + K",         hl.dsp.exec_cmd(studia .. " clear"))
+-- hl.bind(mainMod .. " + SHIFT + K", hl.dsp.exec_cmd("~/Documents/Studia/tools/studia-chromium"))
+
 -- Move focus with mainMod + arrow keys
 hl.bind(mainMod .. " + left",  hl.dsp.focus({ direction = "left"  }))
 hl.bind(mainMod .. " + right", hl.dsp.focus({ direction = "right" }))
@@ -68,6 +74,15 @@ hl.bind(mainMod .. " + SHIFT + right", hl.dsp.window.resize({ x =  100, y =    0
 hl.bind(mainMod .. " + SHIFT + left",  hl.dsp.window.resize({ x = -100, y =    0, relative = true }))
 hl.bind(mainMod .. " + SHIFT + up",    hl.dsp.window.resize({ x =    0, y = -100, relative = true }))
 hl.bind(mainMod .. " + SHIFT + down",  hl.dsp.window.resize({ x =    0, y =  100, relative = true }))
+
+
+hl.bind(mainMod .. " + ALT + right", hl.dsp.window.move({ direction = "right" }))
+hl.bind(mainMod .. " + ALT + left", hl.dsp.window.move({ direction = "left" }))
+hl.bind(mainMod .. " + ALT + up", hl.dsp.window.move({ direction = "up" }))
+hl.bind(mainMod .. " + ALT + down", hl.dsp.window.move({ direction = "down" }))
+
+
+
 
 -- Special workspace (scratchpad)
 hl.bind(mainMod .. " + S",         hl.dsp.workspace.toggle_special("magic"))

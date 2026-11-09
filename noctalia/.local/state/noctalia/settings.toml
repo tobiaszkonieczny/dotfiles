@@ -1,4 +1,4 @@
-config_version = 14
+config_version = 16
 
 [bar]
 order = [ "default" ]
@@ -6,32 +6,26 @@ order = [ "default" ]
     [bar.default]
     background_opacity = 0.84999998100101948
     capsule = true
-    capsule_fill = "outline"
-    capsule_opacity = 0.28999999351799488
-    capsule_thickness = 0.74999998696148396
-    center = [ "group:g2" ]
+    capsule_fill = "outline_variant"
+    capsule_opacity = 0.29999999329447746
+    center = [ "clock", "audio_visualizer", "sysmon" ]
     end = [ "group:g1", "session" ]
     font_family = "Geist"
+    icon_color = "primary"
     margin_ends = 0
     panel_overlap = 0
     position = "left"
-    start = [ "clipboard", "workspaces", "mpvpaper" ]
-    widget_spacing = 4
+    start = [ "clipboard", "workspaces", "mpvpaper", "bar" ]
 
         [[bar.default.capsule_group]]
+        accordion = false
+        accordion_direction = "end"
+        border_width = 1.0
         enabled = true
-        fill = "outline"
+        fill = "outline_variant"
         id = "g1"
-        members = [ "media", "bluetooth", "network", "volume", "brightness", "battery", "tray", "widget" ]
+        members = [ "network", "bluetooth", "volume", "brightness", "battery", "widget", "tray" ]
         opacity = 0.30000001192092896
-        padding = 6.0
-
-        [[bar.default.capsule_group]]
-        enabled = true
-        fill = "outline"
-        id = "g2"
-        members = [ "clock", "audio_visualizer" ]
-        opacity = 0.28999999165534973
         padding = 6.0
 
 [brightness]
@@ -47,25 +41,15 @@ enabled = true
 width = 800
 
 [desktop_widgets]
-enabled = false
 schema_version = 2
-widget_order = [ "desktop-widget-0000000000000001" ]
+widget_order = []
 
     [desktop_widgets.grid]
     cell_size = 16
     major_interval = 4
     visible = true
 
-    [desktop_widgets.widget.desktop-widget-0000000000000001]
-    box_height = 256.0
-    box_width = 512.0
-    cx = 320.0
-    cy = 224.0
-    output = "DP-1"
-    placement_height = 1440.0
-    placement_width = 2560.0
-    rotation = 0.0
-    type = "media_player"
+    [desktop_widgets.widget]
 
 [dock]
 cross_axis_padding = 0
@@ -81,6 +65,7 @@ auto_locate = true
 enabled = true
 schema_version = 2
 widget_order = [
+    "lockscreen-login-box@DP-2",
     "lockscreen-login-box@DP-1",
     "lockscreen-login-box@eDP-1",
     "lockscreen-widget-0000000000000001",
@@ -117,6 +102,35 @@ widget_order = [
         show_keyboard_layout = true
         show_login_button = true
         show_media = true
+        show_password_reveal = true
+        show_session_buttons = true
+        show_unlock_hint = true
+        show_weather = true
+
+    [lockscreen_widgets.widget."lockscreen-login-box@DP-2"]
+    box_height = 196.0
+    box_width = 810.0
+    cx = 640.0
+    cy = 538.0
+    output = "DP-2"
+    placement_height = 720.0
+    placement_width = 1280.0
+    rotation = 0.0
+    type = "login_box"
+
+        [lockscreen_widgets.widget."lockscreen-login-box@DP-2".settings]
+        background_color = "surface_container"
+        background_opacity = 0.88
+        background_radius = 12.0
+        center_password_text = false
+        input_opacity = 1.0
+        input_radius = 6.0
+        layout = "regular"
+        show_caps_lock = true
+        show_keyboard_layout = true
+        show_login_button = true
+        show_media = true
+        show_password_reveal = true
         show_session_buttons = true
         show_unlock_hint = true
         show_weather = true
@@ -144,6 +158,7 @@ widget_order = [
         show_keyboard_layout = true
         show_login_button = true
         show_media = true
+        show_password_reveal = true
         show_session_buttons = true
         show_unlock_hint = true
         show_weather = true
@@ -247,11 +262,14 @@ offset_y = 20
 [plugin_settings."noctalia/mpvpaper"]
 video_directory = "/home/tobia/Videos/Wallpapers"
 
+[plugin_settings."noctalia/wallpaper_depth"]
+auto_generate = false
+
 [plugin_settings."yuuto/arch-updater"]
 auto_check_hours = 24
 
 [plugins]
-enabled = [ "yuuto/arch-updater", "noctalia/mpvpaper", "cleboost/zed-provider" ]
+enabled = [ "yuuto/arch-updater", "noctalia/mpvpaper", "cleboost/zed-provider", "noctalia/wallpaper_depth" ]
 
 [shell]
 app_icon_color = "on_secondary"
@@ -291,19 +309,25 @@ directory = "/home/tobia/Pictures/wallpapers"
 transition_on_startup = true
 
     [wallpaper.default]
-    path = "/home/tobia/Pictures/wallpapers/bebop.jpg"
+    path = "/home/tobia/Pictures/wallpapers/1028034.jpg"
 
     [wallpaper.last]
-    path = "/home/tobia/Pictures/wallpapers/bebop.jpg"
+    path = "/home/tobia/Pictures/wallpapers/1028034.jpg"
 
     [wallpaper.monitors.DP-1]
-    path = "/home/tobia/Pictures/wallpapers/bebop.jpg"
+    path = "/home/tobia/Pictures/wallpapers/1028034.jpg"
+
+    [wallpaper.monitors.DP-2]
+    path = "/home/tobia/Pictures/wallpapers/115077-2560x1440-desktop-hd-outer-wilds-background.jpg"
 
     [wallpaper.monitors.eDP-1]
-    path = "/home/tobia/Pictures/wallpapers/bebop.jpg"
+    path = "/home/tobia/Pictures/wallpapers/1028034.jpg"
 
 [widget.audio_visualizer]
 width = 97
+
+[widget.bar]
+type = "noctalia/wallpaper_depth:bar"
 
 [widget.media]
 max_length = 123
@@ -319,5 +343,4 @@ type = "noctalia/mpvpaper:mpvpaper"
 type = "yuuto/arch-updater:widget"
 
 [widget.workspaces]
-show_labels = false
-style = "focus_hint"
+active_pill_size = 3.4000000000000004

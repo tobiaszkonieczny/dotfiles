@@ -24,6 +24,8 @@ hl.window_rule({
     opacity = "0.75",
 })
 
+
+
 hl.window_rule({
     name  = "float-apps",
     match = { class = "^(blueman-manager|nm-connection-editor|org.pulseaudio.pavucontrol)$" },
@@ -36,6 +38,20 @@ hl.window_rule({
     float = true,
     size = { 1080, 920 },
 })
+
+-- hl.window_rule({
+--     name = "no-blur-no-border-kitty",
+--     match = { class = "^(kitty)$" },
+--     no_blur = true,
+--     border_size = 0,
+-- })
+--
+--
+-- hl.window_rule({
+--     name    = "opacity-unreal",
+--     match   = { class = "^(kitty)$" },
+--     opacity = "0.25",
+-- })
 
 hl.layer_rule({
     name = "noctalia",
