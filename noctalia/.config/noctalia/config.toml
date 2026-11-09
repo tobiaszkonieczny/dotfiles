@@ -25,3 +25,9 @@ syn_pink   = "#ff79c6"
 [theme.templates.user.zed_vivid]
 input_path  = "$XDG_CONFIG_HOME/noctalia/templates/zed-vivid.json"
 output_path = "$XDG_CONFIG_HOME/zed/themes/noctalia-vivid.json"
+
+# LEOBOG Hi75C keyboard: follow the wallpaper's primary color
+[theme.templates.user.leobog]
+input_path  = "~/.config/noctalia/templates/leobog-color"
+output_path = "~/.cache/leobog-rgb/primary"
+post_hook   = "~/.local/bin/leobog-rgb save \"$(cat ~/.cache/leobog-rgb/primary)\""

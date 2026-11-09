@@ -1,0 +1,345 @@
+#!/usr/bin/env python3
+"""Set the RGB color of a LEOBOG Hi75C (Pro) keyboard on Linux, over the 2.4 GHz dongle or USB cable.
+
+2.4 GHz dongle 3554:FA09, HID interface with vendor usage page 0xFF02, 20-byte output reports:
+  [0]=0x13 report id, [1]=command, [2]=packet count, [3]=sequence, [4]=mode/len,
+  [5..18]=data, [19]=checksum (low byte of sum of bytes 0..18).
+  0x88 live solid fill (expires after ~1 s, needs re-sending):
+       13 88 01 00 23 R G B ...
+       (from https://github.com/x0sman/better-hi75c-pro-driver, docs/PROTOCOL.md)
+  0x02 full profile for "self-define" mode (found by testing, kept until keyboard power off):
+       378 bytes planar R[126] G[126] B[126], LED index = 8 + col*6 + row,
+       sent as 27 reports 13 02 1b <seq> 0e <14 data bytes> <checksum>
+
+USB cable (wired mode) 258A:010C, interface 1, one 520-byte feature report:
+  [0]=0x06 [1]=0x08 [6]=0x7a [7]=0x01, then R,G,B per LED slot from byte 8 (170 slots)
+  Live only (reverts after ~1 s), so it must be re-sent: see hold.
+  (from https://github.com/pzwt4cc/LEOBOG-GUI-HI75C)
+
+Usage:
+  leobog-rgb save '#ff8800'         set the color once (dongle: profile write; cable: feature report)
+  leobog-rgb save                   re-send the last color (run at login)
+  leobog-rgb set '#ff8800'          dongle: live color only (reverts after ~1 s)
+  leobog-rgb hold                   daemon: cable -> re-send every 0.7 s, dongle -> only on change
+  leobog-rgb wallpaper IMAGE        pick a dominant vivid color from an image
+  leobog-rgb brightness 30          brightness in percent (also +10 / -10), re-applies the color
+  leobog-rgb config gamma 2.4       other settings: gamma, saturation (file ~/.config/leobog-rgb/config)
+  leobog-rgb off
+  leobog-rgb find                   show which device and mode is used
+Colors are converted for LEDs (saturation, gamma 2.2, brightness); --raw sends them unchanged.
+"""
+
+import argparse
+import colorsys
+import fcntl
+import glob
+import os
+import sys
+import time
+
+DONGLE = (0x3554, 0xFA09)
+WIRED = (0x258A, 0x010C)
+STATE_FILE = os.path.expanduser("~/.cache/leobog-rgb/last")
+
+N_LEDS = 126  # dongle profile: 21 columns x 6 rows
+CHUNK = 14
+WIRED_PAYLOAD = 520
+WIRED_SLOTS = 170
+
+
+def find_device():
+    """Return (path, kind) of the RGB hidraw node; kind is 'wired' or 'dongle'.
+
+    Wired wins: when the cable is in wired mode, the keyboard does not listen to the dongle.
+    """
+    found = {}
+    for node in sorted(glob.glob("/sys/class/hidraw/hidraw*")):
+        try:
+            with open(os.path.join(node, "device/uevent")) as f:
+                uevent = f.read().upper()
+            path = "/dev/" + os.path.basename(node)
+            if "%08X:%08X" % WIRED in uevent:
+                dev_dir = os.path.realpath(os.path.join(node, "device"))
+                with open(os.path.join(dev_dir, "..", "bInterfaceNumber")) as f:
+                    if int(f.read().strip(), 16) == 1:
+                        found.setdefault("wired", path)
+            elif "%08X:%08X" % DONGLE in uevent:
+                with open(os.path.join(node, "device/report_descriptor"), "rb") as f:
+                    # Vendor-defined usage page 0xFF02 is the configuration channel
+                    if f.read().startswith(b"\x06\x02\xff"):
+                        found.setdefault("dongle", path)
+        except (OSError, ValueError):
+            continue
+    for kind in ("wired", "dongle"):
+        if kind in found:
+            return found[kind], kind
+    return None, None
+
+
+# --- 2.4 GHz dongle -------------------------------------------------------
+
+def checksum(rep):
+    rep[19] = sum(rep[:19]) & 0xFF
+    return bytes(rep)
+
+
+def build_live(r, g, b):
+    rep = bytearray(20)
+    rep[0:5] = b"\x13\x88\x01\x00\x23"
+    rep[5:8] = bytes((r, g, b))
+    return checksum(rep)
+
+
+def build_profile(r, g, b):
+    data = bytes([r]) * N_LEDS + bytes([g]) * N_LEDS + bytes([b]) * N_LEDS
+    count = len(data) // CHUNK
+    reports = []
+    for seq in range(count):
+        rep = bytearray(20)
+        rep[0:5] = bytes((0x13, 0x02, count, seq, CHUNK))
+        rep[5:19] = data[seq * CHUNK:(seq + 1) * CHUNK]
+        reports.append(checksum(rep))
+    return reports
+
+
+def write_reports(path, reports, delay=0.0):
+    with open(path, "wb", buffering=0) as f:
+        for rep in reports:
+            f.write(rep)
+            if delay:
+                time.sleep(delay)
+
+
+# --- USB cable (wired mode) -----------------------------------------------
+
+def build_wired(r, g, b):
+    payload = bytearray(WIRED_PAYLOAD)
+    payload[0], payload[1], payload[6], payload[7] = 0x06, 0x08, 0x7A, 0x01
+    for slot in range(WIRED_SLOTS):
+        i = 8 + slot * 3
+        if i + 2 >= WIRED_PAYLOAD:
+            break
+        payload[i:i + 3] = bytes((r, g, b))
+    return bytes(payload)
+
+
+def send_wired(path, r, g, b):
+    payload = build_wired(r, g, b)
+    # HIDIOCSFEATURE(len) = _IOC(_IOC_READ|_IOC_WRITE, 'H', 0x06, len)
+    req = (3 << 30) | (len(payload) << 16) | (ord("H") << 8) | 0x06
+    fd = os.open(path, os.O_RDWR)
+    try:
+        fcntl.ioctl(fd, req, payload)
+    finally:
+        os.close(fd)
+
+
+# --- common ---------------------------------------------------------------
+
+def apply(path, kind, rgb, persistent):
+    # Serialize senders (hold daemon, hotkeys, Noctalia hook): interleaved
+    # multi-report profile writes would corrupt each other.
+    lock_path = os.path.join(os.environ.get("XDG_RUNTIME_DIR", "/tmp"), "leobog-rgb.lock")
+    with open(lock_path, "w") as lock:
+        fcntl.flock(lock, fcntl.LOCK_EX)
+        if kind == "wired":
+            send_wired(path, *rgb)
+        elif persistent:
+            write_reports(path, build_profile(*rgb), delay=0.02)
+        else:
+            write_reports(path, [build_live(*rgb)])
+
+
+def parse_hex(s):
+    s = s.strip().lstrip("#")
+    if len(s) == 3:
+        s = "".join(c * 2 for c in s)
+    if len(s) != 6:
+        raise ValueError(f"invalid color: {s!r}")
+    return tuple(int(s[i:i + 2], 16) for i in (0, 2, 4))
+
+
+CONFIG_FILE = os.path.expanduser("~/.config/leobog-rgb/config")
+DEFAULTS = {
+    "brightness": 50.0,  # percent, applied in software (the keyboard shows raw RGB values)
+    "gamma": 2.2,        # LEDs are linear, screen colors are sRGB: without this colors look whitish
+    "saturation": 1.0,   # multiplier, >1 makes colors stronger, <1 softer
+}
+
+
+def load_config():
+    cfg = dict(DEFAULTS)
+    try:
+        with open(CONFIG_FILE) as f:
+            for line in f:
+                key, sep, value = line.partition("=")
+                key = key.strip()
+                if sep and key in cfg:
+                    try:
+                        cfg[key] = float(value.split("#")[0])
+                    except ValueError:
+                        pass
+    except OSError:
+        pass
+    return cfg
+
+
+def save_config(cfg):
+    os.makedirs(os.path.dirname(CONFIG_FILE), exist_ok=True)
+    with open(CONFIG_FILE, "w") as f:
+        f.write("# leobog-rgb settings (applied to every color before sending)\n")
+        for key in DEFAULTS:
+            f.write(f"{key} = {cfg[key]:g}\n")
+
+
+def to_led(rgb, cfg):
+    """Convert a screen (sRGB) color to LED values: saturation, gamma, brightness."""
+    h, s, v = colorsys.rgb_to_hsv(*(c / 255 for c in rgb))
+    s = min(1.0, s * cfg["saturation"])
+    lin = [c ** cfg["gamma"] for c in colorsys.hsv_to_rgb(h, s, v)]
+    scale = max(0.0, min(100.0, cfg["brightness"])) / 100
+    return tuple(min(255, round(c * scale * 255)) for c in lin)
+
+
+def dominant_color(path):
+    """Pick the most common reasonably saturated hue bucket in the image."""
+    from PIL import Image
+
+    img = Image.open(path).convert("RGB")
+    img.thumbnail((160, 160))
+    buckets = {}
+    for r, g, b in img.getdata():
+        h, s, v = colorsys.rgb_to_hsv(r / 255, g / 255, b / 255)
+        if s < 0.25 or v < 0.2:
+            continue
+        key = int(h * 36)  # 10-degree hue buckets
+        w = s * v  # favor vivid pixels
+        acc = buckets.setdefault(key, [0.0, 0.0, 0.0, 0.0])
+        acc[0] += w
+        acc[1] += r * w
+        acc[2] += g * w
+        acc[3] += b * w
+    if not buckets:
+        return (255, 255, 255)
+    total, r, g, b = max(buckets.values(), key=lambda a: a[0])
+    return (round(r / total), round(g / total), round(b / total))
+
+
+def load_state():
+    try:
+        with open(STATE_FILE) as f:
+            return parse_hex(f.read())
+    except (OSError, ValueError):
+        return (255, 255, 255)
+
+
+def save_state(rgb):
+    os.makedirs(os.path.dirname(STATE_FILE), exist_ok=True)
+    with open(STATE_FILE, "w") as f:
+        f.write("#%02x%02x%02x\n" % rgb)
+
+
+def hold_loop(interval):
+    """Keep the color from STATE_FILE on the keyboard, cheaply.
+
+    - cable (wired mode): colors are live only (expire after ~1 s), re-send every tick
+    - dongle: write the profile once whenever the color or connection changes, then idle
+    Re-reads the state file and the device on every tick, so `leobog-rgb save`
+    and dongle/cable switches are followed.
+    """
+    last = None
+    while True:
+        try:
+            path, kind = find_device()
+            rgb = load_state()
+            if rgb != (0, 0, 0):  # "off" is stored as black, keep it black
+                rgb = to_led(rgb, load_config())
+            current = (path, kind, rgb)
+            if kind == "wired":
+                send_wired(path, *rgb)
+            elif kind == "dongle" and current != last:
+                time.sleep(1.0)  # let the keyboard settle after a cable unplug
+                apply(path, kind, rgb, persistent=True)
+            last = current
+        except OSError:
+            last = None  # device missing or busy: retry next tick
+        time.sleep(interval)
+
+
+def main():
+    ap = argparse.ArgumentParser(description="LEOBOG Hi75C RGB control")
+    sub = ap.add_subparsers(dest="cmd", required=True)
+    p = sub.add_parser("save", help="set the color once (self-define mode)")
+    p.add_argument("color", nargs="?", help="default: last color (restore, e.g. at login)")
+    p.add_argument("--raw", action="store_true")
+    p = sub.add_parser("set", help="dongle: live color only, reverts after ~1 s")
+    p.add_argument("color")
+    p.add_argument("--raw", action="store_true")
+    p = sub.add_parser("wallpaper")
+    p.add_argument("image")
+    p.add_argument("--raw", action="store_true")
+    p = sub.add_parser("hold")
+    p.add_argument("--interval", type=float, default=0.7)
+    p = sub.add_parser("brightness", help="show or set brightness in percent: 30, +10, -10")
+    p.add_argument("value", nargs="?")
+    p = sub.add_parser("config", help="show or set a setting: config gamma 2.4")
+    p.add_argument("key", nargs="?", choices=list(DEFAULTS))
+    p.add_argument("value", nargs="?", type=float)
+    sub.add_parser("off")
+    sub.add_parser("find")
+    args = ap.parse_args()
+
+    cfg = load_config()
+    if args.cmd in ("brightness", "config"):
+        key, value = ("brightness", args.value) if args.cmd == "brightness" else (args.key, args.value)
+        if key is None:
+            print("\n".join(f"{k} = {v:g}" for k, v in cfg.items()))
+            return 0
+        if value is None:
+            print(f"{key} = {cfg[key]:g}")
+            return 0
+        value = str(value)
+        if args.cmd == "brightness" and value[0] in "+-":
+            cfg[key] = max(0.0, min(100.0, cfg[key] + float(value)))
+        else:
+            cfg[key] = float(value)
+        save_config(cfg)
+        print(f"{key} = {cfg[key]:g}")
+        args.cmd, args.color, args.raw = "save", None, False  # re-apply the current color
+
+    path, kind = find_device()
+    if args.cmd == "find":
+        print(f"{path} ({kind})" if path else "not found")
+        return 0 if path else 1
+    if not path:
+        print("LEOBOG keyboard not found (dongle 3554:fa09 / cable 258a:010c)", file=sys.stderr)
+        return 1
+
+    # The state file keeps the original (screen) color, conversion happens at send time
+    if args.cmd == "off":
+        rgb = (0, 0, 0)
+    elif args.cmd == "wallpaper":
+        rgb = dominant_color(args.image)
+    elif args.cmd in ("hold", "save") and not getattr(args, "color", None):
+        rgb = load_state()
+    else:
+        rgb = parse_hex(args.color)
+    led = rgb if getattr(args, "raw", False) or rgb == (0, 0, 0) else to_led(rgb, cfg)
+
+    try:
+        if args.cmd != "hold":
+            save_state(rgb)  # the hold daemon picks this up on its next tick
+        apply(path, kind, led, persistent=args.cmd in ("save", "wallpaper", "off"))
+        print("#%02x%02x%02x -> LED #%02x%02x%02x on %s (%s)" % (*rgb, *led, path, kind))
+        if args.cmd == "hold":
+            hold_loop(args.interval)
+    except PermissionError:
+        print(f"no write access to {path}; install the udev rule", file=sys.stderr)
+        return 2
+    except KeyboardInterrupt:
+        pass
+    return 0
+
+
+if __name__ == "__main__":
+    sys.exit(main())

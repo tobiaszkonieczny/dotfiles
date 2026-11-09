@@ -35,6 +35,10 @@ hl.bind(mainMod .. " + N", hl.dsp.exec_cmd(ipc .. "panel-toggle control-center n
 hl.bind(mainMod .. " + X", hl.dsp.exec_cmd(ipc .. "panel-toggle session"))
 hl.bind(mainMod .. " + SHIFT + X", hl.dsp.exec_cmd(ipc .. "session lock"))
 
+-- LEOBOG Hi75C keyboard backlight brightness (leobog module)
+hl.bind(mainMod .. " + F11",       hl.dsp.exec_cmd("~/.local/bin/leobog-rgb brightness -10"))
+hl.bind(mainMod .. " + F12",       hl.dsp.exec_cmd("~/.local/bin/leobog-rgb brightness +10"))
+
 hl.bind("SUPER + M", function()
   hl.dispatch(hl.dsp.exec_cmd("spotifast", { float = true, move = {50, 70}, size ={1200,700} }))
   hl.dispatch(hl.dsp.exec_cmd('foot zsh -c "cava; exec zsh"', { float = true, move = {1300, 700}, size ={570,320} }))
